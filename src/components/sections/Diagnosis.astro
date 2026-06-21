@@ -3,7 +3,10 @@ import { getCollection } from 'astro:content';
 import LeakCard from '@/components/ui/LeakCard.astro';
 import Badge from '@/components/ui/Badge.astro';
 
-const leaks = (await getCollection('leaks')).sort((a, b) => a.data.number - b.data.number);
+// Show only the 5 core reason lessons on the home page
+const leaks = (await getCollection('leaks'))
+  .filter(l => l.data.number !== undefined)
+  .sort((a, b) => (a.data.number ?? 0) - (b.data.number ?? 0));
 ---
 
 <section class="section bg-black" aria-label="The 5 reasons">
@@ -24,6 +27,7 @@ const leaks = (await getCollection('leaks')).sort((a, b) => a.data.number - b.da
           number={leak.data.number}
           title={leak.data.title}
           teaser={leak.data.teaser}
+          displayLabel={leak.data.displayLabel}
         />
       ))}
     </div>

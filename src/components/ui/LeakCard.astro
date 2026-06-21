@@ -1,15 +1,16 @@
 ---
 interface Props {
-  number: number;
+  number?: number;
   title: string;
   teaser?: string;
+  displayLabel?: string;
 }
-const { number, title, teaser } = Astro.props;
+const { number, title, teaser, displayLabel } = Astro.props;
 ---
 
 <div class="group flex gap-4 rounded-lg border border-white/10 bg-black-2 p-5 transition-colors hover:border-sand/30">
   <span class="font-mono text-2xl font-medium text-blood leading-none mt-0.5 tabular-nums">
-    Lesson {number}
+    {displayLabel ?? (number !== undefined ? `Lesson ${number}` : '')}
   </span>
   <div>
     <h3 class="font-display text-lg uppercase tracking-display text-bone leading-tight">{title}</h3>
