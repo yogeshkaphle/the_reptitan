@@ -24,10 +24,10 @@ const videos = [
     <div class="container mx-auto max-w-2xl text-center">
       <Badge variant="sand" class="mb-4">You're in</Badge>
       <h1 class="headline text-4xl sm:text-5xl md:text-6xl">
-        Videos on<br />the way
+        Lessons on<br />the way
       </h1>
       <p class="mt-5 text-stone">
-        [PLACEHOLDER: Confirmation message. Warm, direct. Tell them to check WhatsApp — the videos will arrive there. Also available below to watch now.]
+        [PLACEHOLDER: Confirmation message. Warm, direct. Tell them to check WhatsApp — the lessons will arrive there. Also available below to watch now.]
       </p>
       <p class="mt-3 text-sm text-stone/60">
         Didn't get it? DM <a href={SITE.instagram} class="text-sand hover:underline" target="_blank" rel="noopener noreferrer">@the_reptitan</a> on Instagram.
@@ -36,9 +36,9 @@ const videos = [
   </section>
 
   <!-- Video embeds -->
-  <section class="section bg-black-2" aria-label="The 5 leak videos">
+  <section class="section bg-black-2" aria-label="The 5 reasons — mini-course">
     <div class="container mx-auto">
-      <p class="eyebrow mb-8 text-center">The 5 leaks — watch now</p>
+      <p class="eyebrow mb-8 text-center">The 5 reasons — mini-course</p>
 
       <div class="space-y-12">
         {videos.map((v) => (
@@ -57,13 +57,13 @@ const videos = [
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowfullscreen
                   loading="lazy"
-                  title={`Leak ${v.number}: ${v.title}`}
+                  title={`Lesson ${v.number}: ${v.title}`}
                 />
               </div>
             ) : (
               <div class="flex aspect-video-16-9 items-center justify-center rounded-lg border border-dashed border-white/20 bg-black">
                 <p class="font-mono text-xs uppercase tracking-widest text-stone/50">
-                  [DEV: Add Vimeo ID for video {v.number} in src/pages/thank-you.astro]
+                  [DEV: Add Vimeo ID for lesson {v.number} in src/pages/thank-you.astro]
                 </p>
               </div>
             )}
@@ -85,7 +85,7 @@ const videos = [
         <p class="eyebrow mb-3">Want the full 60-day fix?</p>
         <h2 class="headline text-3xl">Join the bootcamp</h2>
         <p class="mt-3 text-stone">
-          [PLACEHOLDER: 1-2 sentences. The free videos show you the leaks. The bootcamp fixes them with structure, accountability, and Sunil watching your form for 60 days.]
+          [PLACEHOLDER: 1-2 sentences. The free mini-course shows you the reasons. The bootcamp fixes them with structure, accountability, and Sunil watching your form for 60 days.]
         </p>
         <div class="mt-6">
           {SITE.batchStatus === 'open' ? (

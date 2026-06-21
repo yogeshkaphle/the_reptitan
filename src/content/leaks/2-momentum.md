@@ -1,6 +1,6 @@
 ---
 number: 2
-title: "Momentum"
+title: "The Momentum Reason"
 teaser: "[PLACEHOLDER: One-line tease of how momentum-cheating kills real rep count]"
 videoId: ""
 ---
