@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import LeakCard from '@/components/ui/LeakCard.astro';
-import Badge from '@/components/ui/Badge.astro';
 
 // Show only the 5 core reason lessons on the home page
 const leaks = (await getCollection('leaks'))
@@ -12,7 +11,7 @@ const leaks = (await getCollection('leaks'))
 <section class="section bg-black" aria-label="The 5 reasons">
   <div class="container mx-auto">
     <div class="mb-12 max-w-2xl">
-      <Badge variant="blood" class="mb-4">The real reason</Badge>
+      <p class="eyebrow mb-4">The real reason</p>
       <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
         5 <span class="text-blood">reasons</span> your<br />reps stall
       </h2>

@@ -1,8 +1,5 @@
 ---
-import Badge from '@/components/ui/Badge.astro';
-
 const lessons = [
-  { eyebrow: 'Welcome',  title: 'Welcome',         bonus: false },
   { eyebrow: 'Lesson 1', title: 'Warm-Up',         bonus: false },
   { eyebrow: 'Lesson 2', title: 'Core Engagement', bonus: false },
   { eyebrow: 'Lesson 3', title: 'Momentum',        bonus: false },
@@ -16,7 +13,7 @@ const lessons = [
 
 <section class="section bg-black-2" aria-label="What's inside the free training">
   <div class="container mx-auto">
-    <Badge variant="sand" class="mb-4">7 lessons + 1 bonus</Badge>
+    <p class="eyebrow mb-4">7 lessons + 1 bonus</p>
     <h2 class="headline mb-3 text-4xl sm:text-5xl">
       What's inside
     </h2>

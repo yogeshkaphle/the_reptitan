@@ -1,7 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
 import { SITE, waLink } from '@/data/site';
-import Badge from '@/components/ui/Badge.astro';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
 // 9-item mini-course in exact order.
@@ -27,7 +26,7 @@ const miniCourse = [
   <!-- Confirmation -->
   <section class="section bg-black" aria-label="Confirmation">
     <div class="container mx-auto max-w-2xl text-center">
-      <Badge variant="sand" class="mb-4">You're in</Badge>
+      <p class="eyebrow mb-4">You're in</p>
       <h1 class="headline text-4xl sm:text-5xl md:text-6xl">
         Lessons on<br />the way
       </h1>
@@ -62,7 +61,7 @@ const miniCourse = [
               <summary class="flex cursor-pointer list-none items-center gap-3 px-5 py-4 select-none">
                 <!-- Label (empty for Welcome / What's Next) -->
                 {label && (
-                  <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-blood">
+                  <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-sand">
                     {label}
                   </span>
                 )}

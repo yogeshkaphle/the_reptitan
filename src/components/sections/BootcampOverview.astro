@@ -1,5 +1,4 @@
 ---
-import Badge from '@/components/ui/Badge.astro';
 import { SITE } from '@/data/site';
 
 const weeks = [
@@ -13,7 +12,7 @@ const weeks = [
 <section class="section bg-black" aria-label="Bootcamp overview">
   <div class="container mx-auto">
     <div class="mb-12 max-w-2xl">
-      <Badge variant="sand" class="mb-4">{SITE.bootcamp.durationDays}-day structure</Badge>
+      <p class="eyebrow mb-4">{SITE.bootcamp.durationDays}-day structure</p>
       <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
         How the bootcamp<br /><span class="text-blood">works</span>
       </h2>

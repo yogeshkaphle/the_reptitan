@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import Badge from '@/components/ui/Badge.astro';
 
 interface Props {
   page: 'home' | 'magnet';
@@ -15,7 +14,7 @@ const faqs = allFaqs
 
 <section class="section bg-black" aria-label="FAQ">
   <div class="container mx-auto max-w-3xl">
-    <Badge variant="stone" class="mb-4">Questions</Badge>
+    <p class="eyebrow mb-4">Questions</p>
     <h2 class="headline mb-10 text-4xl sm:text-5xl">
       FAQ
     </h2>
