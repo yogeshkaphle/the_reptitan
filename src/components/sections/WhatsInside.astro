@@ -1,35 +1,34 @@
 ---
-import LeakCard from '@/components/ui/LeakCard.astro';
 import Badge from '@/components/ui/Badge.astro';
 
 const lessons = [
-  { displayLabel: 'Welcome',  title: 'Welcome',          teaser: '' },
-  { displayLabel: 'Lesson 1', title: 'Warm-Up',          teaser: '' },
-  { displayLabel: 'Lesson 2', title: 'Core Engagement',  teaser: '' },
-  { displayLabel: 'Lesson 3', title: 'Momentum',         teaser: '' },
-  { displayLabel: 'Lesson 4', title: 'Lat Engagement',   teaser: '' },
-  { displayLabel: 'Lesson 5', title: 'Grip',             teaser: '' },
-  { displayLabel: 'Lesson 6', title: 'Perfectionism',    teaser: '' },
-  { displayLabel: 'Lesson 7', title: 'Recovery',         teaser: '' },
+  { eyebrow: 'Welcome',  title: 'Welcome',         bonus: false },
+  { eyebrow: 'Lesson 1', title: 'Warm-Up',         bonus: false },
+  { eyebrow: 'Lesson 2', title: 'Core Engagement', bonus: false },
+  { eyebrow: 'Lesson 3', title: 'Momentum',        bonus: false },
+  { eyebrow: 'Lesson 4', title: 'Lat Engagement',  bonus: false },
+  { eyebrow: 'Lesson 5', title: 'Grip',            bonus: false },
+  { eyebrow: 'Lesson 6', title: 'Perfectionism',   bonus: false },
+  { eyebrow: 'Lesson 7', title: 'Recovery',        bonus: false },
+  { eyebrow: 'Bonus',    title: 'How Sunil Trains', bonus: true  },
 ];
 ---
 
 <section class="section bg-black-2" aria-label="What's inside the free training">
   <div class="container mx-auto">
-    <Badge variant="sand" class="mb-4">7 lessons</Badge>
+    <Badge variant="sand" class="mb-4">7 lessons + 1 bonus</Badge>
     <h2 class="headline mb-3 text-4xl sm:text-5xl">
       What's inside
     </h2>
     <p class="mb-10 text-stone">
-      Welcome, warm-up, the 5 reasons your reps stalled, and a recovery lesson to round it out.
+      Warm-up, the 5 reasons your reps stalled, a recovery lesson, and a bonus look at how Sunil actually trains.
     </p>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {lessons.map((lesson) => (
-        <LeakCard
-          title={lesson.title}
-          teaser={lesson.teaser || undefined}
-          displayLabel={lesson.displayLabel}
-        />
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {lessons.map(({ eyebrow, title, bonus }) => (
+        <div class={`flex flex-col gap-2 rounded-lg border bg-black-2 p-5 transition-colors hover:border-sand/30 ${bonus ? 'border-sand/30' : 'border-white/10'}`}>
+          <span class="font-mono text-xs uppercase tracking-widest text-sand">{eyebrow}</span>
+          <h3 class="font-display text-lg uppercase tracking-display text-bone leading-tight">{title}</h3>
+        </div>
       ))}
     </div>
   </div>
