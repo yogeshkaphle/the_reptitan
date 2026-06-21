@@ -7,7 +7,7 @@ import CTAButton from '@/components/ui/CTAButton.astro';
   action={SITE.formEndpoint || '#'}
   method="POST"
   class="flex flex-col gap-4"
-  aria-label="Free training signup form"
+  aria-label="Free mini course signup form"
 >
   <div>
     <label for="lm-name" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
@@ -19,7 +19,7 @@ import CTAButton from '@/components/ui/CTAButton.astro';
       type="text"
       required
       autocomplete="name"
-      placeholder="Tero naam"
+      placeholder="timro naam"
       class="w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand"
     />
   </div>
@@ -49,9 +49,30 @@ import CTAButton from '@/components/ui/CTAButton.astro';
       type="email"
       required
       autocomplete="email"
-      placeholder="tero@email.com"
+      placeholder="timro@email.com"
       class="w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand"
     />
+  </div>
+
+  <div>
+    <label for="lm-current-max" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
+      Your current max pull-ups
+    </label>
+    <select
+      id="lm-current-max"
+      name="current_max"
+      required
+      class="w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand"
+    >
+      <option value="" disabled selected class="text-stone/40">Select your max</option>
+      <option value="Under 5">Under 5</option>
+      <option value="5-10">5-10</option>
+      <option value="11-15">11-15</option>
+      <option value="16-20">16-20</option>
+      <option value="21-25">21-25</option>
+      <option value="26-30">26-30</option>
+      <option value="30+">30+</option>
+    </select>
   </div>
 
   {!SITE.formEndpoint && (
@@ -61,10 +82,10 @@ import CTAButton from '@/components/ui/CTAButton.astro';
   )}
 
   <CTAButton type="submit" class="mt-2">
-    Send Me the Lessons
+    Send me the mini course
   </CTAButton>
 
   <p class="text-center text-xs text-stone/50">
-    No spam. Videos sent via WhatsApp.
+    No spam. Lessons sent via WhatsApp.
   </p>
 </form>

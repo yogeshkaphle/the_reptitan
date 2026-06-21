@@ -1,24 +1,23 @@
 ---
 import { SITE, waLink } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
-import Badge from '@/components/ui/Badge.astro';
 
 const status = SITE.batchStatus;
 
-const ctaCopy = {
+const primaryCopy = {
   'pre-launch': 'Join the Waitlist',
-  'open': 'Join Batch 1',
-  'closed': 'Join Batch 2 Waitlist',
+  'open':       'Join Batch 1',
+  'closed':     'Join Waitlist for Batch 2',
 }[status];
 
-const ctaHref = {
+const primaryHref = {
   'pre-launch': '/why-youre-stuck',
-  'open': waLink(),
-  'closed': '/why-youre-stuck',
+  'open':       waLink(),
+  'closed':     '/why-youre-stuck',
 }[status];
 
-const ctaTarget = status === 'open' ? '_blank' : undefined;
-const ctaRel = status === 'open' ? 'noopener noreferrer' : undefined;
+const primaryTarget = status === 'open' ? '_blank' : undefined;
+const primaryRel    = status === 'open' ? 'noopener noreferrer' : undefined;
 ---
 
 <section
@@ -40,44 +39,53 @@ const ctaRel = status === 'open' ? 'noopener noreferrer' : undefined;
 
   <div class="container relative mx-auto">
     <!-- Eyebrow -->
-    <div class="mb-5 flex flex-wrap items-center gap-3">
-      <Badge variant="blood">Guinness World Record Holder</Badge>
-      <Badge variant="stone">{SITE.bootcamp.durationDays}-Day Bootcamp</Badge>
-    </div>
+    <p class="eyebrow mb-5">60-Day Bootcamp · Batch 1 · July 20</p>
 
     <!-- Headline -->
     <h1 class="headline max-w-3xl text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl">
-      [PLACEHOLDER: Hook headline — e.g. "15 reps ma<br class="hidden md:block" />
-      <span class="text-blood">atiyeko</span> chhas?"]
+      Stuck at your<br /><span class="text-blood">pull-up max?</span>
     </h1>
 
     <!-- Sub-headline -->
     <p class="mt-6 max-w-xl text-base text-stone sm:text-lg">
-      [PLACEHOLDER: 2-line sub — names the plateau, names the fix, names the timeline. Code-mix Nepali-English. No em dashes.]
+      15, 20, 27 reps. Doesn't matter where you're stuck. Add 5 to 10 reps to your max in 60 days. World record holder watching your form every week.
     </p>
 
-    <!-- CTA row -->
-    <div class="mt-10 flex flex-wrap items-center gap-4">
-      <CTAButton href={ctaHref} target={ctaTarget} rel={ctaRel}>
-        {ctaCopy}
+    <!-- Trust line -->
+    <p class="mt-3 font-mono text-xs text-stone/60">
+      Built by Sunil Khadka. Guinness World Record, clap pull-ups, June 21, 2025.
+    </p>
+
+    <!-- CTA row — both buttons render in all states -->
+    <div class="mt-8 flex flex-wrap items-center gap-4">
+      <CTAButton href={primaryHref} target={primaryTarget} rel={primaryRel}>
+        {primaryCopy}
       </CTAButton>
 
-      {status === 'pre-launch' && (
-        <p class="text-sm text-stone">
-          Batch 1 opens <span class="font-mono text-sand">{SITE.bootcamp.launchDate}</span>. Founding rate: <span class="font-mono text-sand">NPR {SITE.bootcamp.foundingPrice.toLocaleString()}</span>.
-        </p>
-      )}
-      {status === 'open' && (
-        <p class="text-sm text-stone">
-          <span class="font-mono text-blood">{SITE.bootcamp.batchCap} spots only.</span> Founding rate ends {SITE.bootcamp.foundingEndDate}.
-        </p>
-      )}
-      {status === 'closed' && (
-        <p class="text-sm text-stone">
-          Batch 1 is full. Get on the list for Batch 2.
-        </p>
-      )}
+      <a
+        href="/why-youre-stuck"
+        class="font-mono text-sm uppercase tracking-wide text-sand transition-colors hover:text-sand-dim"
+      >
+        Free Mini Course: Why You're Stuck &rarr;
+      </a>
     </div>
+
+    <!-- Conditional date / price context -->
+    {status === 'pre-launch' && (
+      <p class="mt-4 text-sm text-stone">
+        Batch 1 opens <span class="font-mono text-sand">{SITE.bootcamp.launchDate}</span>. Founding rate: <span class="font-mono text-sand">NPR {SITE.bootcamp.foundingPrice.toLocaleString()}</span>.
+      </p>
+    )}
+    {status === 'open' && (
+      <p class="mt-4 text-sm text-stone">
+        <span class="font-mono text-blood">{SITE.bootcamp.batchCap} spots only.</span> Founding rate ends {SITE.bootcamp.foundingEndDate}.
+      </p>
+    )}
+    {status === 'closed' && (
+      <p class="mt-4 text-sm text-stone">
+        Batch 1 is full. Get on the list for Batch 2.
+      </p>
+    )}
 
     <!-- Proof strip -->
     <div class="mt-12 flex flex-wrap gap-8 border-t border-white/10 pt-8">

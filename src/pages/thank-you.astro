@@ -1,19 +1,22 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
 import { SITE, waLink } from '@/data/site';
-import { getCollection } from 'astro:content';
 import Badge from '@/components/ui/Badge.astro';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
-const sorted = (await getCollection('leaks'))
-  .sort((a, b) => (a.data.order ?? a.data.number ?? 99) - (b.data.order ?? b.data.number ?? 99));
-
-const lessons = await Promise.all(
-  sorted.map(async (lesson) => {
-    const { Content } = await lesson.render();
-    return { lesson, Content };
-  })
-);
+// 9-item mini-course in exact order.
+// Add vimeoId when video is ready. label is empty for Welcome and What's Next.
+const miniCourse = [
+  { label: '',         title: 'Welcome',               vimeoId: '' },
+  { label: 'Lesson 1', title: 'Warm-Up',               vimeoId: '' },
+  { label: 'Lesson 2', title: 'The Core Engagement',   vimeoId: '' },
+  { label: 'Lesson 3', title: 'The Momentum',          vimeoId: '' },
+  { label: 'Lesson 4', title: 'The Lat Engagement',    vimeoId: '' },
+  { label: 'Lesson 5', title: 'The Grip',              vimeoId: '' },
+  { label: 'Lesson 6', title: 'The Perfectionism',     vimeoId: '' },
+  { label: 'Lesson 7', title: 'The Recovery',          vimeoId: '' },
+  { label: '',         title: "What's Next",           vimeoId: '' },
+];
 ---
 
 <PageLayout
@@ -38,42 +41,40 @@ const lessons = await Promise.all(
   </section>
 
   <!-- Lesson accordion -->
-  <section class="section bg-black-2" aria-label="Mini-course — 8 lessons">
+  <section class="section bg-black-2" aria-label="Mini-course">
     <div class="container mx-auto">
-      <p class="eyebrow mb-6 text-center">Mini-course — 8 lessons</p>
+      <p class="eyebrow mb-6 text-center">Mini-course</p>
 
       <div class="mx-auto max-w-[720px] space-y-2">
-        {lessons.map(({ lesson, Content }, i) => {
+        {miniCourse.map(({ label, title, vimeoId }, i) => {
           const isFirst = i === 0;
-          const label = lesson.data.displayLabel
-            ?? (lesson.data.number !== undefined ? `Lesson ${lesson.data.number}` : '');
-          const vimeoSrc = lesson.data.videoId
-            ? `https://player.vimeo.com/video/${lesson.data.videoId}?dnt=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0`
+          const vimeoSrc = vimeoId
+            ? `https://player.vimeo.com/video/${vimeoId}?dnt=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0`
             : '';
+          const cardId = `lesson-card-${i}`;
 
           return (
             <details
-              id={`lesson-card-${lesson.data.order ?? lesson.data.number ?? i}`}
+              id={cardId}
               class="lesson-card group overflow-hidden rounded-lg border border-white/10 border-l-4 border-l-transparent bg-black-2 transition-colors open:border-white/20 open:border-l-sand open:bg-sand/5"
               open={isFirst || undefined}
             >
               <summary class="flex cursor-pointer list-none items-center gap-3 px-5 py-4 select-none">
-                <!-- Label badge -->
-                <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-blood">
-                  {label}
-                </span>
+                <!-- Label (empty for Welcome / What's Next) -->
+                {label && (
+                  <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-blood">
+                    {label}
+                  </span>
+                )}
 
-                <!-- Title + duration -->
-                <div class="flex min-w-0 flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
+                <!-- Title -->
+                <div class="flex min-w-0 flex-1 items-baseline">
                   <h2 class="font-display text-lg uppercase tracking-display text-bone leading-none sm:text-xl">
-                    {lesson.data.title}
+                    {title}
                   </h2>
-                  {lesson.data.length && (
-                    <span class="font-mono text-xs text-stone/50">{lesson.data.length}</span>
-                  )}
                 </div>
 
-                <!-- Play / chevron indicator -->
+                <!-- Play / chevron -->
                 <span class="flex-shrink-0 flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-sand group-open:text-stone/50">
                   <span class="group-open:hidden">Play</span>
                   <svg
@@ -96,11 +97,6 @@ const lessons = await Promise.all(
 
               <!-- Expanded body -->
               <div class="px-5 pb-6 pt-1">
-                <!-- Description from Markdown body -->
-                <div class="prose prose-sm prose-invert mb-5 max-w-none text-stone">
-                  <Content />
-                </div>
-
                 <!-- Vimeo embed or dev placeholder -->
                 {vimeoSrc ? (
                   <div class="aspect-video-16-9 overflow-hidden rounded-lg bg-black">
@@ -111,13 +107,13 @@ const lessons = await Promise.all(
                       frameborder="0"
                       allow="autoplay; fullscreen; picture-in-picture"
                       allowfullscreen
-                      title={`${label}: ${lesson.data.title}`}
+                      title={label ? `${label}: ${title}` : title}
                     />
                   </div>
                 ) : (
                   <div class="flex aspect-video-16-9 items-center justify-center rounded-lg border border-dashed border-white/20 bg-black">
                     <p class="font-mono text-xs uppercase tracking-widest text-stone/50">
-                      [DEV: Add videoId in src/content/leaks/{lesson.id}]
+                      [DEV: Add vimeoId for "{label ? `${label}: ` : ''}{title}" in src/pages/thank-you.astro]
                     </p>
                   </div>
                 )}

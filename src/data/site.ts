@@ -8,7 +8,7 @@ export const SITE = {
   personalSite: 'https://sunil-khadka.com.np',
 
   bootcamp: {
-    name: 'Double Your Heaves',
+    name: 'The 60-Day Pull-Up Bootcamp',
     durationDays: 60,
     foundingPrice: 2999,
     standardPrice: 5999,
