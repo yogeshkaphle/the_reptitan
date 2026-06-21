@@ -1,28 +1,34 @@
 ---
-import { getCollection } from 'astro:content';
 import LeakCard from '@/components/ui/LeakCard.astro';
 import Badge from '@/components/ui/Badge.astro';
 
-const leaks = (await getCollection('leaks'))
-  .sort((a, b) => (a.data.order ?? a.data.number ?? 99) - (b.data.order ?? b.data.number ?? 99));
+const lessons = [
+  { displayLabel: 'Welcome',  title: 'Welcome',          teaser: '' },
+  { displayLabel: 'Lesson 1', title: 'Warm-Up',          teaser: '' },
+  { displayLabel: 'Lesson 2', title: 'Core Engagement',  teaser: '' },
+  { displayLabel: 'Lesson 3', title: 'Momentum',         teaser: '' },
+  { displayLabel: 'Lesson 4', title: 'Lat Engagement',   teaser: '' },
+  { displayLabel: 'Lesson 5', title: 'Grip',             teaser: '' },
+  { displayLabel: 'Lesson 6', title: 'Perfectionism',    teaser: '' },
+  { displayLabel: 'Lesson 7', title: 'Recovery',         teaser: '' },
+];
 ---
 
 <section class="section bg-black-2" aria-label="What's inside the free training">
   <div class="container mx-auto">
-    <Badge variant="sand" class="mb-4">8 lessons</Badge>
+    <Badge variant="sand" class="mb-4">7 lessons</Badge>
     <h2 class="headline mb-3 text-4xl sm:text-5xl">
       What's inside
     </h2>
     <p class="mb-10 text-stone">
-      Warm-up, the 5 reasons, a recovery bonus, and what to do next.
+      Welcome, warm-up, the 5 reasons your reps stalled, and a recovery lesson to round it out.
     </p>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {leaks.map((leak) => (
+      {lessons.map((lesson) => (
         <LeakCard
-          number={leak.data.number}
-          title={leak.data.title}
-          teaser={leak.data.teaser}
-          displayLabel={leak.data.displayLabel}
+          title={lesson.title}
+          teaser={lesson.teaser || undefined}
+          displayLabel={lesson.displayLabel}
         />
       ))}
     </div>
