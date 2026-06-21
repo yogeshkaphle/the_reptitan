@@ -5,8 +5,15 @@ import { getCollection } from 'astro:content';
 import Badge from '@/components/ui/Badge.astro';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
-const lessons = (await getCollection('leaks'))
+const sorted = (await getCollection('leaks'))
   .sort((a, b) => (a.data.order ?? a.data.number ?? 99) - (b.data.order ?? b.data.number ?? 99));
+
+const lessons = await Promise.all(
+  sorted.map(async (lesson) => {
+    const { Content } = await lesson.render();
+    return { lesson, Content };
+  })
+);
 ---
 
 <PageLayout
@@ -30,57 +37,105 @@ const lessons = (await getCollection('leaks'))
     </div>
   </section>
 
-  <!-- Lesson embeds — all 8, sorted by order -->
+  <!-- Lesson accordion -->
   <section class="section bg-black-2" aria-label="Mini-course — 8 lessons">
     <div class="container mx-auto">
-      <p class="eyebrow mb-8 text-center">Mini-course — 8 lessons</p>
+      <p class="eyebrow mb-6 text-center">Mini-course — 8 lessons</p>
 
-      <div class="space-y-12">
-        {lessons.map((lesson) => (
-          <div>
-            <div class="mb-3 flex items-baseline gap-3">
-              <span class="font-mono text-2xl text-blood tabular-nums">
-                {lesson.data.displayLabel ?? (lesson.data.number !== undefined ? `Lesson ${lesson.data.number}` : '')}
-              </span>
-              <h2 class="headline text-2xl">{lesson.data.title}</h2>
-              {lesson.data.length && (
-                <span class="font-mono text-xs text-stone/50">{lesson.data.length}</span>
-              )}
-            </div>
+      <div class="mx-auto max-w-[720px] space-y-2">
+        {lessons.map(({ lesson, Content }, i) => {
+          const isFirst = i === 0;
+          const label = lesson.data.displayLabel
+            ?? (lesson.data.number !== undefined ? `Lesson ${lesson.data.number}` : '');
+          const vimeoSrc = lesson.data.videoId
+            ? `https://player.vimeo.com/video/${lesson.data.videoId}?dnt=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0`
+            : '';
 
-            {lesson.data.videoId ? (
-              <div class="aspect-video-16-9 overflow-hidden rounded-lg bg-black">
-                <iframe
-                  src={`https://player.vimeo.com/video/${lesson.data.videoId}?dnt=1&badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0`}
-                  class="h-full w-full"
-                  frameborder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowfullscreen
-                  loading="lazy"
-                  title={`${lesson.data.displayLabel ?? ''}: ${lesson.data.title}`}
-                />
+          return (
+            <details
+              id={`lesson-card-${lesson.data.order ?? lesson.data.number ?? i}`}
+              class="lesson-card group overflow-hidden rounded-lg border border-white/10 border-l-4 border-l-transparent bg-black-2 transition-colors open:border-white/20 open:border-l-sand open:bg-sand/5"
+              open={isFirst || undefined}
+            >
+              <summary class="flex cursor-pointer list-none items-center gap-3 px-5 py-4 select-none">
+                <!-- Label badge -->
+                <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-blood">
+                  {label}
+                </span>
+
+                <!-- Title + duration -->
+                <div class="flex min-w-0 flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3">
+                  <h2 class="font-display text-lg uppercase tracking-display text-bone leading-none sm:text-xl">
+                    {lesson.data.title}
+                  </h2>
+                  {lesson.data.length && (
+                    <span class="font-mono text-xs text-stone/50">{lesson.data.length}</span>
+                  )}
+                </div>
+
+                <!-- Play / chevron indicator -->
+                <span class="flex-shrink-0 flex items-center gap-1.5 font-mono text-xs uppercase tracking-wide text-sand group-open:text-stone/50">
+                  <span class="group-open:hidden">Play</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="transition-transform group-open:rotate-180"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </span>
+              </summary>
+
+              <!-- Expanded body -->
+              <div class="px-5 pb-6 pt-1">
+                <!-- Description from Markdown body -->
+                <div class="prose prose-sm prose-invert mb-5 max-w-none text-stone">
+                  <Content />
+                </div>
+
+                <!-- Vimeo embed or dev placeholder -->
+                {vimeoSrc ? (
+                  <div class="aspect-video-16-9 overflow-hidden rounded-lg bg-black">
+                    <iframe
+                      src={isFirst ? vimeoSrc : undefined}
+                      data-src={isFirst ? undefined : vimeoSrc}
+                      class="h-full w-full"
+                      frameborder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowfullscreen
+                      title={`${label}: ${lesson.data.title}`}
+                    />
+                  </div>
+                ) : (
+                  <div class="flex aspect-video-16-9 items-center justify-center rounded-lg border border-dashed border-white/20 bg-black">
+                    <p class="font-mono text-xs uppercase tracking-widest text-stone/50">
+                      [DEV: Add videoId in src/content/leaks/{lesson.id}]
+                    </p>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div class="flex aspect-video-16-9 items-center justify-center rounded-lg border border-dashed border-white/20 bg-black">
-                <p class="font-mono text-xs uppercase tracking-widest text-stone/50">
-                  [DEV: Add videoId for {lesson.data.displayLabel} in src/content/leaks/{lesson.id}]
-                </p>
-              </div>
-            )}
-          </div>
-        ))}
+            </details>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <!-- WhatsApp follow-up note -->
+  <!-- WhatsApp follow-up note + bootcamp CTA -->
   <section class="section bg-black" aria-label="Next steps">
     <div class="container mx-auto max-w-2xl text-center">
       <p class="text-stone">
-        [PLACEHOLDER: One-line WhatsApp note — Sunil will follow up in 24-48 hours with extra context on each leak.]
+        [PLACEHOLDER: One-line WhatsApp note — Sunil will follow up in 24-48 hours with extra context on each reason.]
       </p>
 
-      <!-- Soft bootcamp CTA -->
       <div class="mt-12 rounded-xl border border-sand/20 bg-black-2 p-8">
         <p class="eyebrow mb-3">Want the full 60-day fix?</p>
         <h2 class="headline text-3xl">Join the bootcamp</h2>
@@ -102,3 +157,34 @@ const lessons = (await getCollection('leaks'))
     </div>
   </section>
 </PageLayout>
+
+<style>
+  /* Remove the native details marker across all browsers */
+  .lesson-card > summary::-webkit-details-marker { display: none; }
+  .lesson-card > summary { marker: none; }
+</style>
+
+<script>
+  // Accordion: when one card opens, close all others.
+  // Lazy-load Vimeo iframes — set src from data-src only when card is opened.
+  const cards = document.querySelectorAll<HTMLDetailsElement>('.lesson-card');
+
+  function loadIframe(card: HTMLDetailsElement) {
+    const iframe = card.querySelector<HTMLIFrameElement>('iframe[data-src]');
+    if (iframe && iframe.dataset.src) {
+      iframe.src = iframe.dataset.src;
+      delete iframe.dataset.src;
+    }
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener('toggle', () => {
+      if (card.open) {
+        loadIframe(card);
+        cards.forEach((other) => {
+          if (other !== card && other.open) other.open = false;
+        });
+      }
+    });
+  });
+</script>
