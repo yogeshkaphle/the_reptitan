@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import Badge from '@/components/ui/Badge.astro';
+
+interface Props {
+  page: 'home' | 'magnet';
+}
+const { page } = Astro.props;
+
+const allFaqs = await getCollection('faqs');
+const faqs = allFaqs
+  .filter(f => f.data.page === page)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<section class="section bg-black" aria-label="FAQ">
+  <div class="container mx-auto max-w-3xl">
+    <Badge variant="stone" class="mb-4">Questions</Badge>
+    <h2 class="headline mb-10 text-4xl sm:text-5xl">
+      FAQ
+    </h2>
+
+    {faqs.length === 0 ? (
+      <p class="text-stone">[PLACEHOLDER: Add FAQ entries in src/content/faqs/ with page: "{page}"]</p>
+    ) : (
+      <div class="space-y-4">
+        {faqs.map(async (faq) => {
+          const { Content } = await faq.render();
+          return (
+            <details class="group rounded-lg border border-white/10 bg-black-2 p-5 open:border-sand/30">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-bone">
+                {faq.data.question}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="flex-shrink-0 text-sand transition-transform group-open:rotate-180"
+                  aria-hidden="true"
+                >
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <div class="prose-sm prose-invert mt-4 text-stone max-w-none">
+                <Content />
+              </div>
+            </details>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</section>

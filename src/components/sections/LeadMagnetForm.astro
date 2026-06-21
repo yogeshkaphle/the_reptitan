@@ -1,0 +1,70 @@
+---
+import { SITE } from '@/data/site';
+import CTAButton from '@/components/ui/CTAButton.astro';
+---
+
+<form
+  action={SITE.formEndpoint || '#'}
+  method="POST"
+  class="flex flex-col gap-4"
+  aria-label="Free training signup form"
+>
+  <div>
+    <label for="lm-name" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
+      Name
+    </label>
+    <input
+      id="lm-name"
+      name="name"
+      type="text"
+      required
+      autocomplete="name"
+      placeholder="Tero naam"
+      class="w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand"
+    />
+  </div>
+
+  <div>
+    <label for="lm-whatsapp" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
+      WhatsApp Number
+    </label>
+    <input
+      id="lm-whatsapp"
+      name="whatsapp"
+      type="tel"
+      required
+      autocomplete="tel"
+      placeholder="98XXXXXXXX"
+      class="w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand"
+    />
+  </div>
+
+  <div>
+    <label for="lm-email" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
+      Email
+    </label>
+    <input
+      id="lm-email"
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      placeholder="tero@email.com"
+      class="w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand"
+    />
+  </div>
+
+  {!SITE.formEndpoint && (
+    <p class="text-xs text-stone/50">
+      [DEV: Form endpoint not set. Add SITE.formEndpoint in src/data/site.ts to activate submissions.]
+    </p>
+  )}
+
+  <CTAButton type="submit" class="mt-2">
+    Send Me the Videos
+  </CTAButton>
+
+  <p class="text-center text-xs text-stone/50">
+    No spam. Videos sent via WhatsApp.
+  </p>
+</form>

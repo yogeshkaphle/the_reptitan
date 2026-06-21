@@ -1,0 +1,48 @@
+---
+import StatCard from '@/components/ui/StatCard.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { SITE } from '@/data/site';
+---
+
+<section class="section bg-black-2" aria-label="Sunil's story">
+  <div class="container mx-auto">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+
+      <!-- Text -->
+      <div>
+        <Badge variant="sand" class="mb-4">Who coaches you</Badge>
+        <h2 class="headline text-4xl sm:text-5xl">
+          From <span class="text-blood">4 reps</span><br />to world record
+        </h2>
+        <div class="mt-6 space-y-4 text-stone">
+          <p>[PLACEHOLDER: Paragraph 1 — Sunil started at 4 reps. Not a natural. Nobody told him what to fix. Code-mix, first-person, humble.]</p>
+          <p>[PLACEHOLDER: Paragraph 2 — the turning point. What he figured out that nobody was teaching. Transition to the record.]</p>
+          <p>[PLACEHOLDER: Paragraph 3 — 2,530+ pull-ups. Guinness. Not to brag — to show what fixing the leaks actually does over time.]</p>
+        </div>
+      </div>
+
+      <!-- Stats + photo -->
+      <div class="flex flex-col gap-6">
+        <!-- Photo -->
+        <div class="overflow-hidden rounded-lg bg-black-2 aspect-[4/3]">
+          <img
+            src="/sunil-record.jpg"
+            alt="Sunil Khadka breaking the Guinness World Record"
+            class="h-full w-full object-cover opacity-80"
+            loading="lazy"
+            decoding="async"
+            onerror="this.parentElement.style.display='none'"
+          />
+        </div>
+
+        <!-- Stat row -->
+        <div class="grid grid-cols-3 gap-3">
+          <StatCard number="4" label="Starting reps" />
+          <StatCard number="2,530+" label="World record" accent={true} />
+          <StatCard number={String(SITE.bootcamp.durationDays)} label="Days in bootcamp" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

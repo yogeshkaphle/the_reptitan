@@ -1,0 +1,49 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+const comparisons = [
+  {
+    them: 'PDFs / programs',
+    description: '[PLACEHOLDER: What\'s missing — no feedback loop, no accountability, you don\'t know if your form is wrong.]',
+  },
+  {
+    them: 'YouTube tutorials',
+    description: '[PLACEHOLDER: What\'s missing — info without context, no one watching you, no progression structure.]',
+  },
+  {
+    them: 'Free DMs',
+    description: '[PLACEHOLDER: What\'s missing — one answer doesn\'t fix a pattern, no follow-through, no record.]',
+  },
+];
+---
+
+<section class="section bg-black-2" aria-label="Why this works">
+  <div class="container mx-auto">
+    <div class="mb-12 max-w-2xl">
+      <Badge variant="blood" class="mb-4">Why this, not that</Badge>
+      <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+        This isn't another<br /><span class="text-blood">PDF program</span>
+      </h2>
+      <p class="mt-5 text-stone">
+        [PLACEHOLDER: 1-2 sentences. The difference is structured feedback over 60 days, not a one-time info dump.]
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      {comparisons.map((c) => (
+        <div class="rounded-lg border border-white/10 bg-black p-6">
+          <p class="font-mono text-xs uppercase tracking-widest text-stone/60 line-through">{c.them}</p>
+          <p class="mt-3 text-sm text-stone">{c.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- What's different -->
+    <div class="mt-8 rounded-lg border border-sand/30 bg-sand/5 p-6 md:p-8">
+      <p class="eyebrow mb-3">The bootcamp difference</p>
+      <p class="text-bone">
+        [PLACEHOLDER: 2-3 sentences. Accountability + structure + a coach who has actually done 2,530 reps watching your form. That's the delta.]
+      </p>
+    </div>
+  </div>
+</section>

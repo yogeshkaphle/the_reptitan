@@ -1,0 +1,30 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+import { SITE } from '@/data/site';
+---
+
+<section class="section bg-black" aria-label="Guarantee">
+  <div class="container mx-auto max-w-3xl text-center">
+    <Badge variant="sand" class="mb-4">Risk-free</Badge>
+
+    <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+      The {SITE.bootcamp.durationDays}-Day<br />
+      Bootcamp <span class="text-blood">Guarantee</span>
+    </h2>
+
+    <div class="mt-8 rounded-xl border border-sand/20 bg-sand/5 p-8 text-left md:p-12">
+      <p class="text-lg text-bone">
+        [PLACEHOLDER: State the guarantee clearly and specifically. If your max rep count doesn't increase after 60 days of doing the work, Sunil gives you 30 more days free. No complicated conditions.]
+      </p>
+
+      <div class="mt-6 space-y-3 text-sm text-stone">
+        <p>[PLACEHOLDER: What "doing the work" means — completing the missions, submitting form videos, showing up on calls.]</p>
+        <p>[PLACEHOLDER: What happens when you claim it — no questions, DM Sunil, you get 30 more days added.]</p>
+      </div>
+    </div>
+
+    <p class="mt-6 text-sm text-stone/60">
+      [PLACEHOLDER: Honest note — the guarantee is there but it's for people who actually do the work. If you follow the program, you won't need it.]
+    </p>
+  </div>
+</section>

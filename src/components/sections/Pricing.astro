@@ -1,0 +1,84 @@
+---
+import { SITE, waLink } from '@/data/site';
+import CTAButton from '@/components/ui/CTAButton.astro';
+import Badge from '@/components/ui/Badge.astro';
+
+const status = SITE.batchStatus;
+---
+
+<section id="pricing" class="section bg-black" aria-label="Pricing">
+  <div class="container mx-auto max-w-xl">
+    <div class="mb-10 text-center">
+      <Badge variant="sand" class="mb-4">Investment</Badge>
+      <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+        Join the bootcamp
+      </h2>
+    </div>
+
+    <div class="rounded-xl border border-sand/30 bg-black-2 p-8 md:p-10">
+
+      {status === 'pre-launch' && (
+        <>
+          <p class="eyebrow mb-2">Founding rate</p>
+          <p class="font-display text-6xl text-sand">NPR {SITE.bootcamp.foundingPrice.toLocaleString()}</p>
+          <p class="mt-1 text-sm text-stone/60 line-through">NPR {SITE.bootcamp.standardPrice.toLocaleString()} after launch</p>
+          <p class="mt-4 text-stone">
+            Batch 1 opens <span class="font-mono text-sand">{SITE.bootcamp.launchDate}</span>. Get on the waitlist now to lock the founding rate.
+          </p>
+          <p class="mt-2 text-sm text-stone/60">
+            Founding rate available until {SITE.bootcamp.foundingEndDate} OR when {SITE.bootcamp.batchCap} spots fill — whichever comes first.
+          </p>
+          <div class="mt-8">
+            <CTAButton href="/why-youre-stuck">Join the Waitlist</CTAButton>
+          </div>
+        </>
+      )}
+
+      {status === 'open' && (
+        <>
+          <p class="eyebrow mb-2">Batch 1 is open</p>
+          <p class="font-display text-6xl text-sand">NPR {SITE.bootcamp.foundingPrice.toLocaleString()}</p>
+          <p class="mt-1 text-sm text-stone/60 line-through">NPR {SITE.bootcamp.standardPrice.toLocaleString()} standard rate</p>
+          <p class="mt-4 text-stone">
+            Founding rate ends <span class="font-mono text-blood">{SITE.bootcamp.foundingEndDate}</span> OR when {SITE.bootcamp.batchCap} spots fill.
+          </p>
+          <div class="mt-8">
+            <CTAButton href={waLink('Dai, I want to join Batch 1.')} target="_blank" rel="noopener noreferrer">
+              Join Batch 1
+            </CTAButton>
+          </div>
+        </>
+      )}
+
+      {status === 'closed' && (
+        <>
+          <p class="eyebrow mb-2 text-blood">Batch 1 full</p>
+          <p class="font-display text-4xl text-bone">Batch 2 coming soon</p>
+          <p class="mt-4 text-stone">
+            [PLACEHOLDER: Date TBD message. Join the list to be first to know and lock the founding rate for Batch 2.]
+          </p>
+          <div class="mt-8">
+            <CTAButton href="/why-youre-stuck">Join Batch 2 Waitlist</CTAButton>
+          </div>
+        </>
+      )}
+
+      <!-- What's included summary -->
+      <ul class="mt-8 space-y-2 border-t border-white/10 pt-6 text-sm text-stone">
+        {[
+          `${SITE.bootcamp.durationDays}-day structured bootcamp`,
+          'Weekly form feedback',
+          `Day ${SITE.bootcamp.dayOfTest} max test + Day ${SITE.bootcamp.dayOfGroupCall} group call`,
+          'WhatsApp community access',
+          '5 leak correction videos',
+          '30-day extension guarantee',
+        ].map(item => (
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-sand flex-shrink-0" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

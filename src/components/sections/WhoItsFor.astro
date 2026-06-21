@@ -1,0 +1,60 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+const forYou = [
+  '[PLACEHOLDER: You\'re stuck between 15-30 pull-ups and have been for months]',
+  '[PLACEHOLDER: You train consistently but reps won\'t move]',
+  '[PLACEHOLDER: You\'re preparing for British Army selection or similar test]',
+  '[PLACEHOLDER: You want a coach watching your form, not just a program to follow alone]',
+  '[PLACEHOLDER: You can commit 60 days, not just 60 minutes of motivation]',
+];
+
+const notForYou = [
+  '[PLACEHOLDER: You\'re a beginner who can\'t do 10 clean pull-ups yet]',
+  '[PLACEHOLDER: You\'re looking for a quick hack, not a structured process]',
+  '[PLACEHOLDER: You\'re not willing to drop bad form habits even if they feel comfortable]',
+];
+---
+
+<section class="section bg-black-2" aria-label="Who this is for">
+  <div class="container mx-auto">
+    <div class="mb-12 max-w-2xl">
+      <Badge variant="sand" class="mb-4">Right fit?</Badge>
+      <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+        Who this is<br /><span class="text-blood">built for</span>
+      </h2>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <!-- For you -->
+      <div>
+        <p class="eyebrow mb-5">This is for you if</p>
+        <ul class="space-y-3">
+          {forYou.map((item) => (
+            <li class="flex gap-3 text-sm text-stone">
+              <span class="mt-0.5 flex-shrink-0 text-sand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Not for you -->
+      <div>
+        <p class="eyebrow mb-5 text-stone/60">This is NOT for you if</p>
+        <ul class="space-y-3">
+          {notForYou.map((item) => (
+            <li class="flex gap-3 text-sm text-stone/60">
+              <span class="mt-0.5 flex-shrink-0 text-blood/60">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

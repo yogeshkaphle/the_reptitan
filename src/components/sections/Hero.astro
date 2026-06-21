@@ -1,0 +1,98 @@
+---
+import { SITE, waLink } from '@/data/site';
+import CTAButton from '@/components/ui/CTAButton.astro';
+import Badge from '@/components/ui/Badge.astro';
+
+const status = SITE.batchStatus;
+
+const ctaCopy = {
+  'pre-launch': 'Join the Waitlist',
+  'open': 'Join Batch 1',
+  'closed': 'Join Batch 2 Waitlist',
+}[status];
+
+const ctaHref = {
+  'pre-launch': '/why-youre-stuck',
+  'open': waLink(),
+  'closed': '/why-youre-stuck',
+}[status];
+
+const ctaTarget = status === 'open' ? '_blank' : undefined;
+const ctaRel = status === 'open' ? 'noopener noreferrer' : undefined;
+---
+
+<section
+  class="relative flex min-h-[90svh] flex-col justify-end overflow-hidden bg-black pb-16 pt-24 md:pt-32"
+  aria-label="Hero"
+>
+  <!-- Background texture overlay -->
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" aria-hidden="true"></div>
+
+  <!-- Hero image (swap when photo arrives) -->
+  <img
+    src="/sunil-hero.jpg"
+    alt="Sunil Khadka doing pull-ups"
+    class="absolute inset-0 h-full w-full object-cover object-top opacity-30"
+    fetchpriority="high"
+    decoding="async"
+    onerror="this.style.display='none'"
+  />
+
+  <div class="container relative mx-auto">
+    <!-- Eyebrow -->
+    <div class="mb-5 flex flex-wrap items-center gap-3">
+      <Badge variant="blood">Guinness World Record Holder</Badge>
+      <Badge variant="stone">{SITE.bootcamp.durationDays}-Day Bootcamp</Badge>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="headline max-w-3xl text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl">
+      [PLACEHOLDER: Hook headline — e.g. "15 reps ma<br class="hidden md:block" />
+      <span class="text-blood">atiyeko</span> chhas?"]
+    </h1>
+
+    <!-- Sub-headline -->
+    <p class="mt-6 max-w-xl text-base text-stone sm:text-lg">
+      [PLACEHOLDER: 2-line sub — names the plateau, names the fix, names the timeline. Code-mix Nepali-English. No em dashes.]
+    </p>
+
+    <!-- CTA row -->
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <CTAButton href={ctaHref} target={ctaTarget} rel={ctaRel}>
+        {ctaCopy}
+      </CTAButton>
+
+      {status === 'pre-launch' && (
+        <p class="text-sm text-stone">
+          Batch 1 opens <span class="font-mono text-sand">{SITE.bootcamp.launchDate}</span>. Founding rate: <span class="font-mono text-sand">NPR {SITE.bootcamp.foundingPrice.toLocaleString()}</span>.
+        </p>
+      )}
+      {status === 'open' && (
+        <p class="text-sm text-stone">
+          <span class="font-mono text-blood">{SITE.bootcamp.batchCap} spots only.</span> Founding rate ends {SITE.bootcamp.foundingEndDate}.
+        </p>
+      )}
+      {status === 'closed' && (
+        <p class="text-sm text-stone">
+          Batch 1 is full. Get on the list for Batch 2.
+        </p>
+      )}
+    </div>
+
+    <!-- Proof strip -->
+    <div class="mt-12 flex flex-wrap gap-8 border-t border-white/10 pt-8">
+      <div>
+        <p class="font-display text-3xl text-sand">2,530+</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-stone">pull-ups — world record</p>
+      </div>
+      <div>
+        <p class="font-display text-3xl text-sand">{SITE.bootcamp.durationDays}</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-stone">days to break your plateau</p>
+      </div>
+      <div>
+        <p class="font-display text-3xl text-sand">{SITE.bootcamp.batchCap}</p>
+        <p class="font-mono text-xs uppercase tracking-widest text-stone">spots per batch</p>
+      </div>
+    </div>
+  </div>
+</section>

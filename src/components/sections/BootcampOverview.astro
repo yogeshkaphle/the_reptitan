@@ -1,0 +1,55 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+import { SITE } from '@/data/site';
+
+const weeks = [
+  { range: 'Week 1-2', title: 'Leak Audit', description: '[PLACEHOLDER: What happens in the first two weeks. Form diagnosis, drop the bad habits, start the Drop Mission.]' },
+  { range: 'Week 3-4', title: 'Form Reset', description: '[PLACEHOLDER: The Form Mission. Building the movement pattern from scratch with strict cues.]' },
+  { range: 'Week 5-6', title: 'Load', description: '[PLACEHOLDER: Challenge Mission begins. Volume goes up but only on the clean pattern.]' },
+  { range: 'Week 7-8', title: 'Peak + Test', description: `[PLACEHOLDER: Day ${SITE.bootcamp.dayOfTest} max test. Day ${SITE.bootcamp.dayOfGroupCall} group call.]` },
+];
+---
+
+<section class="section bg-black" aria-label="Bootcamp overview">
+  <div class="container mx-auto">
+    <div class="mb-12 max-w-2xl">
+      <Badge variant="sand" class="mb-4">{SITE.bootcamp.durationDays}-day structure</Badge>
+      <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+        How the bootcamp<br /><span class="text-blood">works</span>
+      </h2>
+      <p class="mt-5 text-stone">
+        [PLACEHOLDER: 1-2 sentences. Plain language. No jargon. Each week has three things: a Drop (what to stop), a Form Mission (what to drill), and a Challenge Mission (the workout).]
+      </p>
+    </div>
+
+    <!-- Weekly rhythm -->
+    <div class="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {weeks.map((w) => (
+        <div class="rounded-lg border border-white/10 bg-black-2 p-5">
+          <p class="font-mono text-xs uppercase tracking-widest text-sand">{w.range}</p>
+          <h3 class="headline mt-2 text-xl">{w.title}</h3>
+          <p class="mt-2 text-sm text-stone">{w.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Weekly rhythm explainer -->
+    <div class="rounded-lg border border-sand/20 bg-sand/5 p-6 md:p-8">
+      <p class="eyebrow mb-4">Every week inside the bootcamp</p>
+      <div class="grid gap-6 sm:grid-cols-3">
+        <div>
+          <p class="font-display text-lg uppercase text-bone">Drop Mission</p>
+          <p class="mt-1 text-sm text-stone">[PLACEHOLDER: One sentence. A habit or form mistake to eliminate that week.]</p>
+        </div>
+        <div>
+          <p class="font-display text-lg uppercase text-bone">Form Mission</p>
+          <p class="mt-1 text-sm text-stone">[PLACEHOLDER: One sentence. A specific drill to build the right pattern.]</p>
+        </div>
+        <div>
+          <p class="font-display text-lg uppercase text-bone">Challenge Mission</p>
+          <p class="mt-1 text-sm text-stone">[PLACEHOLDER: One sentence. The actual workout — volume and intensity prescribed.]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

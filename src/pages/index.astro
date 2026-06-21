@@ -1,18 +1,78 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
 import { SITE } from '@/data/site';
+
+import Hero from '@/components/sections/Hero.astro';
+import PlateauPain from '@/components/sections/PlateauPain.astro';
+import Diagnosis from '@/components/sections/Diagnosis.astro';
+import SunilArc from '@/components/sections/SunilArc.astro';
+import BootcampOverview from '@/components/sections/BootcampOverview.astro';
+import WhyThisWorks from '@/components/sections/WhyThisWorks.astro';
+import WhatYouGet from '@/components/sections/WhatYouGet.astro';
+import WhoItsFor from '@/components/sections/WhoItsFor.astro';
+import Guarantee from '@/components/sections/Guarantee.astro';
+import WhatIf from '@/components/sections/WhatIf.astro';
+import Pricing from '@/components/sections/Pricing.astro';
+import LeadMagnetSoftCTA from '@/components/sections/LeadMagnetSoftCTA.astro';
+import FAQ from '@/components/sections/FAQ.astro';
+import AboutBlock from '@/components/sections/AboutBlock.astro';
+import CTAButton from '@/components/ui/CTAButton.astro';
+import { waLink } from '@/data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: SITE.bootcamp.name,
+  description: `${SITE.bootcamp.durationDays}-day pull-up bootcamp by ${SITE.coach}. Break through your plateau in 60 days.`,
+  provider: {
+    '@type': 'Person',
+    name: SITE.coach,
+    url: SITE.personalSite,
+  },
+  url: `https://${SITE.domain}`,
+};
 ---
 
 <PageLayout
   title={`${SITE.brand} — Double Your Pull-Up Max in 60 Days`}
-  description="Pull-up bootcamp by Guinness world record holder Sunil Khadka. Plateau at 15-30 reps? Break through in 60 days. Kathmandu, Nepal."
+  description="Pull-up bootcamp by Guinness world record holder Sunil Khadka. Stuck at 15-30 reps? Break through your plateau in 60 days. Kathmandu, Nepal."
+  schema={schema}
 >
-  <!-- SECTIONS ADDED IN NEXT PHASE -->
-  <section class="section container mx-auto text-center">
-    <p class="eyebrow mb-4">Foundation complete</p>
-    <h1 class="headline text-5xl md:text-7xl">
-      The Rep<span class="text-blood">Titan</span>
-    </h1>
-    <p class="mt-6 text-stone">Home page sections coming next phase.</p>
+  <Hero />
+  <PlateauPain />
+  <Diagnosis />
+  <SunilArc />
+  <BootcampOverview />
+  <WhyThisWorks />
+  <WhatYouGet />
+  <WhoItsFor />
+  <Guarantee />
+  <WhatIf />
+  <Pricing />
+  <LeadMagnetSoftCTA />
+  <FAQ page="home" />
+  <AboutBlock />
+
+  <!-- Final CTA -->
+  <section class="section bg-black" aria-label="Final call to action">
+    <div class="container mx-auto max-w-2xl text-center">
+      <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+        [PLACEHOLDER: Final hook — one line, sharp, names the outcome]
+      </h2>
+      <p class="mt-5 text-stone">
+        [PLACEHOLDER: 1-2 sentences. Last push. What changes if they do this vs. not.]
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        {SITE.batchStatus === 'open' ? (
+          <CTAButton href={waLink()} target="_blank" rel="noopener noreferrer">
+            Join Batch 1
+          </CTAButton>
+        ) : (
+          <CTAButton href="/why-youre-stuck">
+            Start with the Free Training
+          </CTAButton>
+        )}
+      </div>
+    </div>
   </section>
 </PageLayout>

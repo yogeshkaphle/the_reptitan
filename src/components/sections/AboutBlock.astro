@@ -1,0 +1,56 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+import { SITE } from '@/data/site';
+---
+
+<section class="section bg-black-2" aria-label="About Sunil">
+  <div class="container mx-auto">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-start">
+
+      <!-- Text -->
+      <div>
+        <Badge variant="sand" class="mb-4">Who is the_reptitan?</Badge>
+        <h2 class="headline text-4xl sm:text-5xl">
+          {SITE.coach}
+        </h2>
+        <div class="mt-6 space-y-4 text-stone">
+          <p>[PLACEHOLDER: Paragraph 1 — origin story in brief. Where Sunil started, what the pull-up journey looked like before the record. Keep it grounded, not heroic.]</p>
+          <p>[PLACEHOLDER: Paragraph 2 — what he learned that changed everything. The system that eventually became the bootcamp.]</p>
+          <p>[PLACEHOLDER: Paragraph 3 — why he coaches. The gap he saw in Nepal — no one teaching this properly. First-person, peer tone.]</p>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a
+            href={SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono text-sm text-sand transition-colors hover:text-sand-dim"
+          >
+            @the_reptitan ↗
+          </a>
+          <a
+            href={SITE.personalSite}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-mono text-sm text-stone transition-colors hover:text-sand"
+          >
+            sunil-khadka.com.np ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo placeholder -->
+      <div class="overflow-hidden rounded-xl bg-black aspect-[3/4] max-w-sm">
+        <img
+          src="/sunil-hero.jpg"
+          alt={SITE.coach}
+          class="h-full w-full object-cover object-top opacity-80"
+          loading="lazy"
+          decoding="async"
+          onerror="this.parentElement.style.display='none'"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>

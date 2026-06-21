@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import LeakCard from '@/components/ui/LeakCard.astro';
+import Badge from '@/components/ui/Badge.astro';
+
+const leaks = (await getCollection('leaks')).sort((a, b) => a.data.number - b.data.number);
+---
+
+<section class="section bg-black-2" aria-label="What's inside the free training">
+  <div class="container mx-auto">
+    <Badge variant="sand" class="mb-4">5 videos</Badge>
+    <h2 class="headline mb-10 text-4xl sm:text-5xl">
+      What's inside
+    </h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {leaks.map((leak) => (
+        <LeakCard
+          number={leak.data.number}
+          title={leak.data.title}
+          teaser={leak.data.teaser}
+        />
+      ))}
+    </div>
+  </div>
+</section>

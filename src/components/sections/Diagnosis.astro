@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import LeakCard from '@/components/ui/LeakCard.astro';
+import Badge from '@/components/ui/Badge.astro';
+
+const leaks = (await getCollection('leaks')).sort((a, b) => a.data.number - b.data.number);
+---
+
+<section class="section bg-black" aria-label="The 5 leaks">
+  <div class="container mx-auto">
+    <div class="mb-12 max-w-2xl">
+      <Badge variant="blood" class="mb-4">The real reason</Badge>
+      <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
+        5 <span class="text-blood">leaks</span> killing<br />your reps
+      </h2>
+      <p class="mt-5 text-stone">
+        [PLACEHOLDER: 1-2 sentences. Reframe: it's not your strength or your training volume. These five technical leaks are costing you 5-10 reps every single set.]
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {leaks.map((leak) => (
+        <LeakCard
+          number={leak.data.number}
+          title={leak.data.title}
+          teaser={leak.data.teaser}
+        />
+      ))}
+    </div>
+
+    <p class="mt-8 text-sm text-stone/70">
+      [PLACEHOLDER: One-line bridge — "Fix these and you'll see reps move in the first week."]
+    </p>
+  </div>
+</section>

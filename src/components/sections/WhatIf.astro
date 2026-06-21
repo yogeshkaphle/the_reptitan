@@ -1,0 +1,36 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+const qas = [
+  {
+    q: '[PLACEHOLDER: "What if I miss a few days?"]',
+    a: '[PLACEHOLDER: Real answer. Not dismissive. Programs are designed with life in mind. Here\'s what to do if you fall behind.]',
+  },
+  {
+    q: '[PLACEHOLDER: "What if my form is already decent?"]',
+    a: '[PLACEHOLDER: The leak audit will tell you. Most people think their form is fine until they see the video.]',
+  },
+  {
+    q: '[PLACEHOLDER: "What if I only get to 20 reps instead of doubling?"]',
+    a: '[PLACEHOLDER: The guarantee covers you. And 20 from 12 is still a massive jump for British Army selection.]',
+  },
+];
+---
+
+<section class="section bg-black-2" aria-label="Risk reversal">
+  <div class="container mx-auto max-w-3xl">
+    <Badge variant="stone" class="mb-4">What if...</Badge>
+    <h2 class="headline mb-10 text-4xl sm:text-5xl">
+      Honest answers to<br />the real concerns
+    </h2>
+
+    <div class="space-y-6">
+      {qas.map((qa) => (
+        <div class="rounded-lg border border-white/10 bg-black p-6">
+          <p class="font-medium text-bone">{qa.q}</p>
+          <p class="mt-3 text-sm text-stone">{qa.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
