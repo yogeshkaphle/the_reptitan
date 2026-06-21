@@ -1,0 +1,40 @@
+---
+import { SITE, waLink } from '@/data/site';
+---
+
+<footer class="border-t border-white/10 bg-black py-12">
+  <div class="container mx-auto">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+
+      <!-- Brand -->
+      <div class="max-w-xs">
+        <p class="font-display text-xl uppercase tracking-display text-bone">
+          The Rep<span class="text-blood">Titan</span>
+        </p>
+        <p class="mt-2 text-sm text-stone">
+          Pull-up bootcamp by {SITE.coach}. Kathmandu, Nepal.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <nav class="flex flex-col gap-3 text-sm text-stone" aria-label="Footer navigation">
+        <a href="/" class="transition-colors hover:text-sand">Home</a>
+        <a href="/why-youre-stuck" class="transition-colors hover:text-sand">Free Training</a>
+        <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+          Instagram @the_reptitan
+        </a>
+        <a href={SITE.personalSite} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+          sunil-khadka.com.np
+        </a>
+        <a href={waLink()} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+          WhatsApp
+        </a>
+      </nav>
+
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 text-xs text-stone/50">
+      <p>&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

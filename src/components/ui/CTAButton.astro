@@ -1,0 +1,33 @@
+---
+// Big CTA button — used in hero and pricing sections.
+// Renders as anchor or button depending on href.
+interface Props {
+  href?: string;
+  target?: string;
+  rel?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+
+const { href, target, rel, type = 'button', class: extraClass = '' } = Astro.props;
+
+const classes = [
+  'inline-flex items-center justify-center gap-2',
+  'bg-sand text-black font-mono text-sm uppercase tracking-wide font-medium',
+  'px-8 py-4 rounded-md',
+  'transition-all hover:bg-sand-dim active:scale-95',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sand focus-visible:ring-offset-2 focus-visible:ring-offset-black',
+  'w-full sm:w-auto',
+  extraClass,
+].join(' ');
+---
+
+{href ? (
+  <a href={href} class={classes} {target} {rel}>
+    <slot />
+  </a>
+) : (
+  <button {type} class={classes}>
+    <slot />
+  </button>
+)}

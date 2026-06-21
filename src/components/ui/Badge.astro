@@ -1,0 +1,17 @@
+---
+interface Props {
+  variant?: 'sand' | 'blood' | 'stone';
+  class?: string;
+}
+const { variant = 'sand', class: extraClass = '' } = Astro.props;
+
+const variants = {
+  sand: 'bg-sand/15 text-sand border border-sand/30',
+  blood: 'bg-blood/15 text-blood border border-blood/30',
+  stone: 'bg-stone/10 text-stone border border-stone/20',
+};
+---
+
+<span class={`inline-block font-mono text-xs uppercase tracking-widest px-3 py-1 rounded ${variants[variant]} ${extraClass}`}>
+  <slot />
+</span>

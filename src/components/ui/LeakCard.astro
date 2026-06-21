@@ -1,0 +1,18 @@
+---
+interface Props {
+  number: number;
+  title: string;
+  teaser?: string;
+}
+const { number, title, teaser } = Astro.props;
+---
+
+<div class="group flex gap-4 rounded-lg border border-white/10 bg-black-2 p-5 transition-colors hover:border-sand/30">
+  <span class="font-mono text-2xl font-medium text-blood leading-none mt-0.5 tabular-nums">
+    {String(number).padStart(2, '0')}
+  </span>
+  <div>
+    <h3 class="font-display text-lg uppercase tracking-display text-bone leading-tight">{title}</h3>
+    {teaser && <p class="mt-1 text-sm text-stone">{teaser}</p>}
+  </div>
+</div>
