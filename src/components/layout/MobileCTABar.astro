@@ -4,14 +4,16 @@ interface Props {
   label: string;
   target?: string;
   rel?: string;
+  watchSelector?: string;
 }
-const { href, label, target, rel } = Astro.props;
+const { href, label, target, rel, watchSelector } = Astro.props;
 ---
 
 <div
   id="mobile-cta-bar"
-  class="fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-white/10 bg-black/95 p-3 backdrop-blur transition-transform duration-300 ease-out md:hidden"
+  class="fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-white/10 bg-black/95 p-3 transition-transform duration-300 ease-out md:hidden"
   aria-hidden="true"
+  data-watch={watchSelector ?? '[aria-label="Hero"]'}
 >
   <a
     href={href}
@@ -30,25 +32,32 @@ const { href, label, target, rel } = Astro.props;
 </style>
 
 <script>
-  const bar = document.getElementById('mobile-cta-bar');
+  const bar = document.getElementById('mobile-cta-bar') as HTMLElement | null;
   if (bar) {
-    const hero = document.querySelector('[aria-label="Hero"]');
-    if (hero) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          const past = !entry.isIntersecting;
-          bar.classList.toggle('translate-y-full', !past);
-          bar.setAttribute('aria-hidden', String(!past));
-          document.body.classList.toggle('cta-bar-visible', past);
-        },
-        { threshold: 0 }
-      );
-      observer.observe(hero);
-    } else {
-      // No Hero section (landing page) — show immediately
+    const selector = bar.dataset.watch ?? '[aria-label="Hero"]';
+    const sentinel = document.querySelector(selector);
+
+    const show = () => {
       bar.classList.remove('translate-y-full');
       bar.setAttribute('aria-hidden', 'false');
       document.body.classList.add('cta-bar-visible');
+    };
+    const hide = () => {
+      bar.classList.add('translate-y-full');
+      bar.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('cta-bar-visible');
+    };
+
+    if (sentinel) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          entry.isIntersecting ? hide() : show();
+        },
+        { threshold: 0 }
+      );
+      observer.observe(sentinel);
+    } else {
+      show();
     }
   }
 </script>
