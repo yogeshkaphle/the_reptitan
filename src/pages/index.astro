@@ -20,11 +20,7 @@ import MobileCTABar from '@/components/layout/MobileCTABar.astro';
 import { waLink } from '@/data/site';
 
 // Fixed mobile bottom bar — primary CTA per batch state (mirrors Hero routing).
-const barCopy = {
-  'pre-launch': 'Join the Waitlist',
-  'open':       'Join Batch 1',
-  'closed':     'Join Waitlist for Batch 2',
-}[SITE.batchStatus];
+const barCopy = 'Join';
 const barHref = {
   'pre-launch': '/why-youre-stuck?source=waitlist',
   'open':       '#enroll',

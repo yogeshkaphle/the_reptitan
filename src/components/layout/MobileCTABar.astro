@@ -1,5 +1,4 @@
 ---
-// Fixed bottom CTA bar — mobile only. Page's primary CTA stays visible on scroll.
 interface Props {
   href: string;
   label: string;
@@ -9,20 +8,47 @@ interface Props {
 const { href, label, target, rel } = Astro.props;
 ---
 
-<div class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/95 p-3 backdrop-blur md:hidden">
+<div
+  id="mobile-cta-bar"
+  class="fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-white/10 bg-black/95 p-3 backdrop-blur transition-transform duration-300 ease-out md:hidden"
+  aria-hidden="true"
+>
   <a
     href={href}
-    {target}
-    {rel}
+    target={target}
+    rel={rel}
     class="flex w-full items-center justify-center gap-2 rounded-md bg-sand px-6 py-3.5 font-mono text-sm font-medium uppercase tracking-wide text-black transition-transform active:scale-95"
   >
     {label}
   </a>
 </div>
 
-<!-- Reserve space so the fixed bar never covers footer content on mobile -->
 <style is:global>
   @media (max-width: 767px) {
-    body { padding-bottom: 4.75rem; }
+    body.cta-bar-visible { padding-bottom: 4.75rem; }
   }
 </style>
+
+<script>
+  const bar = document.getElementById('mobile-cta-bar');
+  if (bar) {
+    const hero = document.querySelector('[aria-label="Hero"]');
+    if (hero) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          const past = !entry.isIntersecting;
+          bar.classList.toggle('translate-y-full', !past);
+          bar.setAttribute('aria-hidden', String(!past));
+          document.body.classList.toggle('cta-bar-visible', past);
+        },
+        { threshold: 0 }
+      );
+      observer.observe(hero);
+    } else {
+      // No Hero section (landing page) — show immediately
+      bar.classList.remove('translate-y-full');
+      bar.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('cta-bar-visible');
+    }
+  }
+</script>
