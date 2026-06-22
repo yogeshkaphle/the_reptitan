@@ -37,41 +37,56 @@ const included = [
 
     <div class="rounded-xl border border-sand/30 bg-black-2 p-8 md:p-10">
 
-      <!-- Price block -->
-      <p class="font-display text-6xl text-sand">Rs {SITE.bootcamp.foundingPrice.toLocaleString()}</p>
-      <p class="mt-2 text-sm text-stone">
-        Founding rate. First {SITE.bootcamp.batchCap} only, then it's <span class="text-stone/60 line-through">{SITE.bootcamp.standardPrice.toLocaleString()}</span>.
-      </p>
-      <p class="mt-1 text-xs text-stone">
-        Less than a month of gym fees for 60 days of coaching.
-      </p>
+      {status === 'closed' ? (
+        <>
+          <p class="eyebrow mb-2 text-blood">Batch 1 full</p>
+          <p class="font-display text-4xl text-bone">Batch 2 coming soon</p>
+          <p class="mt-4 text-stone">
+            [PLACEHOLDER: Date TBD message. Join the list to be first to know and lock the founding rate for Batch 2.]
+          </p>
+          <div class="mt-8">
+            <CTAButton href={ctaHref}>{ctaCopy}</CTAButton>
+          </div>
+        </>
+      ) : (
+        <>
+          <!-- Price block -->
+          <p class="font-display text-6xl text-sand">Rs {SITE.bootcamp.foundingPrice.toLocaleString()}</p>
+          <p class="mt-2 text-sm text-stone">
+            Founding rate. First {SITE.bootcamp.batchCap} only, then it's <span class="text-stone/60 line-through">{SITE.bootcamp.standardPrice.toLocaleString()}</span>.
+          </p>
+          <p class="mt-1 text-xs text-stone">
+            Less than a month of gym fees for 60 days of coaching.
+          </p>
 
-      <!-- What's included -->
-      <p class="mt-8 font-mono text-xs uppercase tracking-widest text-sand">What you get for 60 days:</p>
-      <ul class="mt-4 space-y-3 text-sm text-stone">
-        {included.map(item => (
-          <li class="flex gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-1 flex-shrink-0 text-sand" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+          <!-- What's included -->
+          <p class="mt-8 font-mono text-xs uppercase tracking-widest text-sand">What you get for 60 days:</p>
+          <ul class="mt-4 space-y-3 text-sm text-stone">
+            {included.map(item => (
+              <li class="flex gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-1 flex-shrink-0 text-sand" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
 
-      <!-- Guarantee tie-in -->
-      <p class="mt-6 border-t border-white/10 pt-6 text-sm text-bone">
-        If your max hasn't moved by Day 60 and you did the missions, Sunil coaches you 1-on-1 for 30 more days. Free.
-      </p>
+          <!-- Guarantee tie-in -->
+          <p class="mt-6 border-t border-white/10 pt-6 text-sm text-bone">
+            If your max hasn't moved by Day 60 and you did the missions, Sunil coaches you 1-on-1 for 30 more days. Free.
+          </p>
 
-      <!-- CTA -->
-      <div class="mt-8">
-        <CTAButton href={ctaHref}>{ctaCopy}</CTAButton>
-        {status === 'pre-launch' && (
-          <p class="mt-3 text-sm text-stone">Founding Batch opens July 20. First 30 only.</p>
-        )}
-        {status === 'open' && (
-          <p class="mt-3 text-sm text-stone">First 30 founding spots.</p>
-        )}
-      </div>
+          <!-- CTA -->
+          <div class="mt-8">
+            <CTAButton href={ctaHref}>{ctaCopy}</CTAButton>
+            {status === 'pre-launch' && (
+              <p class="mt-3 text-sm text-stone">Founding Batch opens July 20. First 30 only.</p>
+            )}
+            {status === 'open' && (
+              <p class="mt-3 text-sm text-stone">First 30 founding spots.</p>
+            )}
+          </div>
+        </>
+      )}
     </div>
   </div>
 </section>
