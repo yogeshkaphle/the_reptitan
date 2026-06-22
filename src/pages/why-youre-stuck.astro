@@ -4,6 +4,7 @@ import { SITE } from '@/data/site';
 import LeadMagnetForm from '@/components/sections/LeadMagnetForm.astro';
 import WhatsInside from '@/components/sections/WhatsInside.astro';
 import FAQ from '@/components/sections/FAQ.astro';
+import MobileCTABar from '@/components/layout/MobileCTABar.astro';
 ---
 
 <PageLayout
@@ -37,14 +38,14 @@ import FAQ from '@/components/sections/FAQ.astro';
               onerror="this.style.display='none'"
             />
             <div>
-              <p class="font-medium text-bone">{SITE.coach}</p>
+              <p class="font-medium text-bone">By {SITE.coach}</p>
               <p class="text-sm text-stone">Guinness World Record — 32+ clapping pull-ups in a minute</p>
             </div>
           </div>
         </div>
 
         <!-- Right: form -->
-        <div class="rounded-xl border border-white/10 bg-black-2 p-6 md:p-8">
+        <div id="lead-form" class="scroll-mt-24 rounded-xl border border-white/10 bg-black-2 p-6 md:p-8">
           <p class="eyebrow mb-5">Get the mini course + bonus week — free</p>
           <LeadMagnetForm />
         </div>
@@ -90,4 +91,6 @@ import FAQ from '@/components/sections/FAQ.astro';
       </a>
     </div>
   </section>
+
+  <MobileCTABar href="#lead-form" label="Send me the mini course" />
 </PageLayout>

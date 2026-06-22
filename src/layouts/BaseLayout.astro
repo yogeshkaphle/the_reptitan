@@ -2,7 +2,6 @@
 import '@/styles/global.css';
 import BaseHead from '@/components/layout/BaseHead.astro';
 import Footer from '@/components/layout/Footer.astro';
-import StickyWhatsApp from '@/components/layout/StickyWhatsApp.astro';
 import SchemaOrg from '@/components/seo/SchemaOrg.astro';
 
 interface Props {
@@ -25,6 +24,5 @@ const { title, description, ogImage, noIndex, schema } = Astro.props;
   <body class="min-h-screen bg-black text-stone">
     <slot />
     <Footer />
-    <StickyWhatsApp />
   </body>
 </html>

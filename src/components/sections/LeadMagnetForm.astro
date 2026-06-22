@@ -9,6 +9,9 @@ import CTAButton from '@/components/ui/CTAButton.astro';
   class="flex flex-col gap-4"
   aria-label="Free mini course signup form"
 >
+  <!-- Captures ?source= from the URL (waitlist / waitlist-b2) via the script below -->
+  <input type="hidden" id="lm-source" name="source" value="" />
+
   <div>
     <label for="lm-name" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
       Name
@@ -88,4 +91,18 @@ import CTAButton from '@/components/ui/CTAButton.astro';
   <p class="text-center text-xs text-stone/50">
     No spam. Lessons sent via WhatsApp.
   </p>
+
+  <p class="text-center text-xs text-sand">
+    Signing up also puts you on the waitlist for the next 60-Day Pull-Up Bootcamp.
+  </p>
 </form>
+
+<script>
+  // Carry the waitlist source tag from the URL into the form payload.
+  const params = new URLSearchParams(window.location.search);
+  const src = params.get('source');
+  if (src) {
+    const el = document.getElementById('lm-source') as HTMLInputElement | null;
+    if (el) el.value = src;
+  }
+</script>

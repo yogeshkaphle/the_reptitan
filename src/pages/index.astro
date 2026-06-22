@@ -4,7 +4,6 @@ import { SITE } from '@/data/site';
 
 import Hero from '@/components/sections/Hero.astro';
 import PlateauPain from '@/components/sections/PlateauPain.astro';
-import Diagnosis from '@/components/sections/Diagnosis.astro';
 import SunilArc from '@/components/sections/SunilArc.astro';
 import BootcampOverview from '@/components/sections/BootcampOverview.astro';
 import WhyThisWorks from '@/components/sections/WhyThisWorks.astro';
@@ -17,7 +16,20 @@ import LeadMagnetSoftCTA from '@/components/sections/LeadMagnetSoftCTA.astro';
 import FAQ from '@/components/sections/FAQ.astro';
 import AboutBlock from '@/components/sections/AboutBlock.astro';
 import CTAButton from '@/components/ui/CTAButton.astro';
+import MobileCTABar from '@/components/layout/MobileCTABar.astro';
 import { waLink } from '@/data/site';
+
+// Fixed mobile bottom bar — primary CTA per batch state (mirrors Hero routing).
+const barCopy = {
+  'pre-launch': 'Join the Waitlist',
+  'open':       'Join Batch 1',
+  'closed':     'Join Waitlist for Batch 2',
+}[SITE.batchStatus];
+const barHref = {
+  'pre-launch': '/why-youre-stuck?source=waitlist',
+  'open':       '#enroll',
+  'closed':     '/why-youre-stuck?source=waitlist-b2',
+}[SITE.batchStatus];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -40,7 +52,6 @@ const schema = {
 >
   <Hero />
   <PlateauPain />
-  <Diagnosis />
   <SunilArc />
   <BootcampOverview />
   <WhyThisWorks />
@@ -75,4 +86,6 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <MobileCTABar href={barHref} label={barCopy} />
 </PageLayout>

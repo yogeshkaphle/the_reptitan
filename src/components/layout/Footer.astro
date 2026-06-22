@@ -33,8 +33,14 @@ import { SITE, waLink } from '@/data/site';
 
     </div>
 
-    <div class="mt-10 border-t border-white/10 pt-6 text-xs text-stone/50">
-      <p>&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
+    <div class="mt-10 border-t border-white/10 pt-6">
+      <p class="text-sm text-stone">
+        Got a question before you join?
+        <a href={waLink()} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">
+          Message Sunil on WhatsApp
+        </a>
+      </p>
+      <p class="mt-4 text-xs text-stone/50">&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
     </div>
   </div>
 </footer>

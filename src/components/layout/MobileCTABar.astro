@@ -1,0 +1,28 @@
+---
+// Fixed bottom CTA bar — mobile only. Page's primary CTA stays visible on scroll.
+interface Props {
+  href: string;
+  label: string;
+  target?: string;
+  rel?: string;
+}
+const { href, label, target, rel } = Astro.props;
+---
+
+<div class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/95 p-3 backdrop-blur md:hidden">
+  <a
+    href={href}
+    {target}
+    {rel}
+    class="flex w-full items-center justify-center gap-2 rounded-md bg-sand px-6 py-3.5 font-mono text-sm font-medium uppercase tracking-wide text-black transition-transform active:scale-95"
+  >
+    {label}
+  </a>
+</div>
+
+<!-- Reserve space so the fixed bar never covers footer content on mobile -->
+<style is:global>
+  @media (max-width: 767px) {
+    body { padding-bottom: 4.75rem; }
+  }
+</style>

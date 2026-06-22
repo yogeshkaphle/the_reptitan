@@ -1,5 +1,5 @@
 ---
-import { SITE, waLink } from '@/data/site';
+import { SITE } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
 const status = SITE.batchStatus;
@@ -10,14 +10,14 @@ const primaryCopy = {
   'closed':     'Join Waitlist for Batch 2',
 }[status];
 
+// Waitlist states route to the mini-course opt-in (which also captures the waitlist),
+// tagged by source so submissions can be distinguished.
+// TODO enrollment page before July 20 — '#enroll' is a placeholder for the open state.
 const primaryHref = {
-  'pre-launch': '/why-youre-stuck',
-  'open':       waLink(),
-  'closed':     '/why-youre-stuck',
+  'pre-launch': '/why-youre-stuck?source=waitlist',
+  'open':       '#enroll',
+  'closed':     '/why-youre-stuck?source=waitlist-b2',
 }[status];
-
-const primaryTarget = status === 'open' ? '_blank' : undefined;
-const primaryRel    = status === 'open' ? 'noopener noreferrer' : undefined;
 ---
 
 <section
@@ -38,8 +38,11 @@ const primaryRel    = status === 'open' ? 'noopener noreferrer' : undefined;
   />
 
   <div class="container relative mx-auto">
-    <!-- Eyebrow -->
-    <p class="eyebrow mb-5">60-Day Bootcamp · Batch 1 · July 20</p>
+    <!-- Eyebrow — short on mobile, full on desktop; never wraps -->
+    <p class="eyebrow mb-5 whitespace-nowrap text-[0.7rem] sm:text-xs">
+      <span class="sm:hidden">Batch 1 · July 20</span>
+      <span class="hidden sm:inline">60-Day Bootcamp · Batch 1 · July 20</span>
+    </p>
 
     <!-- Headline -->
     <h1 class="headline max-w-3xl text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl">
@@ -56,17 +59,17 @@ const primaryRel    = status === 'open' ? 'noopener noreferrer' : undefined;
       Built by Sunil Khadka. Guinness World Record, clap pull-ups, June 21, 2025.
     </p>
 
-    <!-- CTA row — both buttons render in all states -->
-    <div class="mt-8 flex flex-wrap items-center gap-4">
-      <CTAButton href={primaryHref} target={primaryTarget} rel={primaryRel}>
+    <!-- CTA row — solid primary + ghost/outline secondary, both in all states -->
+    <div class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+      <CTAButton href={primaryHref}>
         {primaryCopy}
       </CTAButton>
 
       <a
         href="/why-youre-stuck"
-        class="font-mono text-sm uppercase tracking-wide text-sand transition-colors hover:text-sand-dim"
+        class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-sand/40 bg-transparent px-6 py-4 font-mono text-sm uppercase tracking-wide text-bone transition-colors hover:border-sand hover:text-sand sm:w-auto"
       >
-        Free Mini Course: Why You're Stuck &rarr;
+        Free Mini Course &rarr;
       </a>
     </div>
 
