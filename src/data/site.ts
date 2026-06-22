@@ -14,6 +14,7 @@ export const SITE = {
     standardPrice: 5999,
     batchCap: 30,
     launchDate: '2026-07-20',
+    batchStartDate: 'July 20',
     foundingEndDate: '2026-07-18',
     dayOfTest: 58,
     dayOfGroupCall: 60,
