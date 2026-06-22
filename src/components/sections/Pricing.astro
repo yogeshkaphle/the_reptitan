@@ -20,6 +20,7 @@ const status = SITE.batchStatus;
         <>
           <p class="eyebrow mb-2">Founding rate</p>
           <p class="font-display text-6xl text-sand">NPR {SITE.bootcamp.foundingPrice.toLocaleString()}</p>
+          <p class="mt-1 font-mono text-sm text-stone">Founding rate. First 30 only, then it's {SITE.bootcamp.standardPrice.toLocaleString()}.</p>
           <p class="mt-1 text-sm text-stone/60 line-through">NPR {SITE.bootcamp.standardPrice.toLocaleString()} after launch</p>
           <p class="mt-4 text-stone">
             Batch 1 opens <span class="font-mono text-sand">{SITE.bootcamp.launchDate}</span>. Get on the waitlist now to lock the founding rate.
