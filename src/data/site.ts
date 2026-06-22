@@ -24,6 +24,9 @@ export const SITE = {
   // Values: "pre-launch" | "open" | "closed"
   batchStatus: 'pre-launch' as 'pre-launch' | 'open' | 'closed',
 
+  // Reveal the "How I Train: A Real Week" section on thank-you when Sunil confirms his week.
+  howITrainTableReady: false,
+
   // Replace with GHL webhook URL when ready.
   formEndpoint: '',
 } as const;
