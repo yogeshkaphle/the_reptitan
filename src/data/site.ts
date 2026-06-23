@@ -2,7 +2,7 @@ export const SITE = {
   brand: 'The RepTitan',
   coach: 'Sunil Khadka',
   domain: 'thereptitan.com',
-  whatsapp: '9869362060',
+  whatsapp: '9779869362060',
   waPrefill: 'Dai, I want to join the bootcamp.',
   instagram: 'https://instagram.com/the_reptitan',
   personalSite: 'https://sunil-khadka.com.np',

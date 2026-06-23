@@ -10,9 +10,10 @@ interface Props {
   ogImage?: string;
   noIndex?: boolean;
   schema?: Record<string, unknown>;
+  waMessage?: string;
 }
 
-const { title, description, ogImage, noIndex, schema } = Astro.props;
+const { title, description, ogImage, noIndex, schema, waMessage } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,6 +24,6 @@ const { title, description, ogImage, noIndex, schema } = Astro.props;
   </head>
   <body class="min-h-screen bg-black text-stone">
     <slot />
-    <Footer />
+    <Footer waMessage={waMessage} />
   </body>
 </html>

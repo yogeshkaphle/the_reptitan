@@ -1,5 +1,11 @@
 ---
 import { SITE, waLink } from '@/data/site';
+
+interface Props {
+  waMessage?: string;
+}
+const { waMessage } = Astro.props;
+const waHref = waLink(waMessage);
 ---
 
 <footer class="border-t border-white/10 bg-black py-12">
@@ -26,7 +32,7 @@ import { SITE, waLink } from '@/data/site';
         <a href={SITE.personalSite} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
           sunil-khadka.com.np
         </a>
-        <a href={waLink()} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+        <a href={waHref} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
           WhatsApp
         </a>
       </nav>
@@ -36,7 +42,7 @@ import { SITE, waLink } from '@/data/site';
     <div class="mt-10 border-t border-white/10 pt-6">
       <p class="text-sm text-stone">
         Got a question before you join?
-        <a href={waLink()} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">
+        <a href={waHref} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">
           Message Sunil on WhatsApp
         </a>
       </p>

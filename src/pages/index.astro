@@ -19,6 +19,13 @@ import CTAButton from '@/components/ui/CTAButton.astro';
 import MobileCTABar from '@/components/layout/MobileCTABar.astro';
 import { waLink } from '@/data/site';
 
+// Footer WhatsApp message varies by batch state.
+const footerWaMessage = {
+  'pre-launch': 'Dai, I want to join the waitlist for Batch 1.',
+  'open':       'Dai, I want to join Batch 1.',
+  'closed':     'Dai, I want to join the waitlist for Batch 2.',
+}[SITE.batchStatus];
+
 // Fixed mobile bottom bar — primary CTA per batch state (mirrors Hero routing).
 const barCopy = 'Join';
 const barHref = {
@@ -45,6 +52,7 @@ const schema = {
   title={`${SITE.brand} — Add 5-10 Reps to Your Pull-Up Max in 60 Days`}
   description="Pull-up bootcamp by Guinness world record holder Sunil Khadka. Stuck at 15-30 reps? Break through your plateau in 60 days. Kathmandu, Nepal."
   schema={schema}
+  waMessage={footerWaMessage}
 >
   <Hero />
   <PlateauPain />
