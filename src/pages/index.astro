@@ -69,7 +69,7 @@ const schema = {
   <AboutBlock />
 
   <!-- Final CTA -->
-  <section class="section bg-black" aria-label="Final call to action">
+  <section id="final-cta" class="section bg-black" aria-label="Final call to action">
     <div class="container mx-auto max-w-2xl text-center">
       <h2 class="headline text-4xl sm:text-5xl md:text-6xl">
         One bar. Sixty days. Your number moves or I keep <span class="text-blood">coaching.</span>
@@ -96,5 +96,5 @@ const schema = {
     </div>
   </section>
 
-  <MobileCTABar href={barHref} label={barCopy} />
+  <MobileCTABar href={barHref} label={barCopy} hideSelector="#final-cta" />
 </PageLayout>

@@ -5,8 +5,9 @@ interface Props {
   target?: string;
   rel?: string;
   watchSelector?: string;
+  hideSelector?: string;
 }
-const { href, label, target, rel, watchSelector } = Astro.props;
+const { href, label, target, rel, watchSelector, hideSelector } = Astro.props;
 ---
 
 <div
@@ -14,6 +15,7 @@ const { href, label, target, rel, watchSelector } = Astro.props;
   class="fixed inset-x-0 bottom-0 z-40 translate-y-full border-t border-white/10 bg-black/95 p-3 transition-transform duration-300 ease-out md:hidden"
   aria-hidden="true"
   data-watch={watchSelector ?? '[aria-label="Hero"]'}
+  data-hide={hideSelector}
 >
   <a
     href={href}
@@ -37,27 +39,39 @@ const { href, label, target, rel, watchSelector } = Astro.props;
     const selector = bar.dataset.watch ?? '[aria-label="Hero"]';
     const sentinel = document.querySelector(selector);
 
-    const show = () => {
-      bar.classList.remove('translate-y-full');
-      bar.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('cta-bar-visible');
-    };
-    const hide = () => {
-      bar.classList.add('translate-y-full');
-      bar.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('cta-bar-visible');
+    // Track both gates: sentinel must be out of view AND the suppressor (if any) not in view.
+    let sentinelOut = false;
+    let suppressed = false;
+
+    const apply = () => {
+      if (sentinelOut && !suppressed) {
+        bar.classList.remove('translate-y-full');
+        bar.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('cta-bar-visible');
+      } else {
+        bar.classList.add('translate-y-full');
+        bar.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('cta-bar-visible');
+      }
     };
 
     if (sentinel) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          entry.isIntersecting ? hide() : show();
-        },
+      new IntersectionObserver(
+        ([entry]) => { sentinelOut = !entry.isIntersecting; apply(); },
         { threshold: 0 }
-      );
-      observer.observe(sentinel);
+      ).observe(sentinel);
     } else {
-      show();
+      sentinelOut = true;
+      apply();
+    }
+
+    const hideSel = bar.dataset.hide;
+    const suppressor = hideSel ? document.querySelector(hideSel) : null;
+    if (suppressor) {
+      new IntersectionObserver(
+        ([entry]) => { suppressed = entry.isIntersecting; apply(); },
+        { threshold: 0 }
+      ).observe(suppressor);
     }
   }
 </script>
