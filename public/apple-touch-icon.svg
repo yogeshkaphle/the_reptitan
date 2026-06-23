@@ -1,22 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
-  <!-- apple-touch-icon: solid bg required by iOS -->
+  <!-- apple-touch-icon: solid dark bg required by iOS -->
   <rect width="180" height="180" fill="#1A1815"/>
-  <!-- depth layer -->
   <text
-    x="10" y="138"
-    font-family="'Arial Black', 'Impact', 'Haettenschweiler', sans-serif"
+    x="90" y="90"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="'Arial Black', Impact, 'Haettenschweiler', sans-serif"
     font-weight="900"
-    font-size="118"
-    letter-spacing="-17"
-    fill="#8B0A20"
-  >TRT</text>
-  <!-- foreground -->
-  <text
-    x="7" y="133"
-    font-family="'Arial Black', 'Impact', 'Haettenschweiler', sans-serif"
-    font-weight="900"
-    font-size="118"
-    letter-spacing="-17"
-    fill="#DC143C"
-  >TRT</text>
+    font-size="100"
+    letter-spacing="-11"
+  ><tspan fill="#F2F0EB">T</tspan><tspan fill="#DC143C">R</tspan><tspan fill="#F2F0EB">T</tspan></text>
 </svg>

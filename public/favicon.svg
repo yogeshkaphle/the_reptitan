@@ -1,26 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <!--
-    TRT monogram — brand crimson #DC143C, transparent bg.
-    Single <text> with tight letter-spacing for legibility at 16px.
-    Offset shadow copy (+2px) adds depth at 32px+.
-    Readable at 16x16, clean at 32x32, strong at 180x180 (apple-touch).
+    TRT monogram. viewBox 64x64 square.
+    font-size 36 + letter-spacing -4 → ~60px total, 2px clear each side.
+    Outer T's: off-white #F2F0EB. Middle R: crimson #DC143C.
+    Single <text> with tspans keeps browser text-shaping intact → legible at 16px.
+    Shadow dropped: two fill colors × shadow = 4 elements, muddy at 16px.
   -->
-  <!-- depth layer -->
   <text
-    x="3" y="50"
-    font-family="'Arial Black', 'Impact', 'Haettenschweiler', sans-serif"
+    x="32" y="32"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="'Arial Black', Impact, 'Haettenschweiler', sans-serif"
     font-weight="900"
-    font-size="42"
-    letter-spacing="-6"
-    fill="#8B0A20"
-  >TRT</text>
-  <!-- foreground -->
-  <text
-    x="1" y="48"
-    font-family="'Arial Black', 'Impact', 'Haettenschweiler', sans-serif"
-    font-weight="900"
-    font-size="42"
-    letter-spacing="-6"
-    fill="#DC143C"
-  >TRT</text>
+    font-size="36"
+    letter-spacing="-4"
+  ><tspan fill="#F2F0EB">T</tspan><tspan fill="#DC143C">R</tspan><tspan fill="#F2F0EB">T</tspan></text>
 </svg>
