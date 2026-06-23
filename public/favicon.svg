@@ -1,5 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="12" fill="#1A1815"/>
-  <text x="8" y="48" font-family="sans-serif" font-weight="900" font-size="44" fill="#C2A878">R</text>
-  <text x="32" y="48" font-family="sans-serif" font-weight="900" font-size="44" fill="#8B2E2E">T</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!--
+    TRT monogram — brand crimson #DC143C, transparent bg.
+    Single <text> with tight letter-spacing for legibility at 16px.
+    Offset shadow copy (+2px) adds depth at 32px+.
+    Readable at 16x16, clean at 32x32, strong at 180x180 (apple-touch).
+  -->
+  <!-- depth layer -->
+  <text
+    x="3" y="50"
+    font-family="'Arial Black', 'Impact', 'Haettenschweiler', sans-serif"
+    font-weight="900"
+    font-size="42"
+    letter-spacing="-6"
+    fill="#8B0A20"
+  >TRT</text>
+  <!-- foreground -->
+  <text
+    x="1" y="48"
+    font-family="'Arial Black', 'Impact', 'Haettenschweiler', sans-serif"
+    font-weight="900"
+    font-size="42"
+    letter-spacing="-6"
+    fill="#DC143C"
+  >TRT</text>
 </svg>
