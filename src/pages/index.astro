@@ -1,6 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE } from '@/data/site';
+import { SITE, CTA_STATES } from '@/data/site';
 
 import Hero from '@/components/sections/Hero.astro';
 import PlateauPain from '@/components/sections/PlateauPain.astro';
@@ -17,7 +17,7 @@ import FAQ from '@/components/sections/FAQ.astro';
 import AboutBlock from '@/components/sections/AboutBlock.astro';
 import CTAButton from '@/components/ui/CTAButton.astro';
 import MobileCTABar from '@/components/layout/MobileCTABar.astro';
-import { waLink } from '@/data/site';
+const finalCta = CTA_STATES[SITE.batchStatus];
 
 // Footer WhatsApp message varies by batch state.
 const footerWaMessage = {
@@ -77,16 +77,21 @@ const schema = {
       <p class="mt-5 text-stone">
         Founding Batch is 30 spots. After that the price doubles and the next Batch is months away.
       </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        {SITE.batchStatus === 'open' ? (
-          <CTAButton href={waLink()} target="_blank" rel="noopener noreferrer">
-            Join Batch 1
-          </CTAButton>
-        ) : (
-          <CTAButton href="/why-youre-stuck">
-            Start with the Free Training
-          </CTAButton>
-        )}
+      <div class="mt-8 flex flex-col items-center gap-4">
+        <CTAButton href={finalCta.href}>
+          {finalCta.copy}
+        </CTAButton>
+
+        <p class="text-sm text-stone">
+          {finalCta.reassurance}
+        </p>
+
+        <a
+          href="/why-youre-stuck"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-sand/40 bg-transparent px-6 py-4 font-mono text-sm uppercase tracking-wide text-bone transition-colors hover:border-sand hover:text-sand"
+        >
+          Free Mini Course &rarr;
+        </a>
       </div>
     </div>
   </section>

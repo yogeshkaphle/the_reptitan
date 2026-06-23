@@ -31,6 +31,26 @@ export const SITE = {
   formEndpoint: '',
 } as const;
 
+// Centralized 3-state CTA map. Hero, Pricing, and the final CTA all read from this.
+// Keep copy/href/reassurance consistent across the page by editing here only.
+export const CTA_STATES = {
+  'pre-launch': {
+    copy:        'Join the Waitlist',
+    href:        '/why-youre-stuck?source=waitlist',
+    reassurance: 'Founding Batch opens July 20. First 30 only.',
+  },
+  'open': {
+    copy:        'Join Batch 1',
+    href:        '#enroll',
+    reassurance: 'Batch 1 is open. First 30 founding spots.',
+  },
+  'closed': {
+    copy:        'Join Waitlist for Batch 2',
+    href:        '/why-youre-stuck?source=waitlist-b2',
+    reassurance: 'Batch 1 is full. Join the waitlist for Batch 2.',
+  },
+} as const;
+
 export function waLink(prefill?: string): string {
   const text = encodeURIComponent(prefill ?? SITE.waPrefill);
   return `https://wa.me/${SITE.whatsapp}?text=${text}`;

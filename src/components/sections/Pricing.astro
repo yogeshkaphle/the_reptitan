@@ -1,20 +1,9 @@
 ---
-import { SITE } from '@/data/site';
+import { SITE, CTA_STATES } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
 const status = SITE.batchStatus;
-
-// CTA routing mirrors the Hero: waitlist states -> opt-in form tagged by source; open -> enrollment.
-const ctaCopy = {
-  'pre-launch': 'Join the Waitlist',
-  'open':       'Join Batch 1',
-  'closed':     'Join Waitlist for Batch 2',
-}[status];
-const ctaHref = {
-  'pre-launch': '/why-youre-stuck?source=waitlist',
-  'open':       '#enroll',
-  'closed':     '/why-youre-stuck?source=waitlist-b2',
-}[status];
+const { copy: ctaCopy, href: ctaHref } = CTA_STATES[status];
 
 const included = [
   'A Monday session plan, built on the method behind the record',

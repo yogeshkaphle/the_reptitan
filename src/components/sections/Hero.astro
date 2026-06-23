@@ -1,29 +1,8 @@
 ---
-import { SITE } from '@/data/site';
+import { SITE, CTA_STATES } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
-const status = SITE.batchStatus;
-
-const primaryCopy = {
-  'pre-launch': 'Join the Waitlist',
-  'open':       'Join Batch 1',
-  'closed':     'Join Waitlist for Batch 2',
-}[status];
-
-// Waitlist states route to the mini-course opt-in (which also captures the waitlist),
-// tagged by source so submissions can be distinguished.
-// TODO enrollment page before July 20 — '#enroll' is a placeholder for the open state.
-const primaryHref = {
-  'pre-launch': '/why-youre-stuck?source=waitlist',
-  'open':       '#enroll',
-  'closed':     '/why-youre-stuck?source=waitlist-b2',
-}[status];
-
-const reassurance = {
-  'pre-launch': 'Founding Batch opens July 20. First 30 only.',
-  'open':       'Batch 1 is open. First 30 founding spots.',
-  'closed':     'Batch 1 is full. Join the waitlist for Batch 2.',
-}[status];
+const { copy: primaryCopy, href: primaryHref, reassurance } = CTA_STATES[SITE.batchStatus];
 ---
 
 <section
