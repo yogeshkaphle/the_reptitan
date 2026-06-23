@@ -1,6 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE, currentCTA } from '@/data/site';
+import { SITE, BATCH, currentCTA } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
 // 9-item mini-course in exact order.
@@ -180,7 +180,7 @@ const miniCourse = [
           The mini course shows you why you're stuck. The Bootcamp fixes it. 60 days, my eyes on your form every week, your max moves or I keep coaching.
         </p>
         <div class="mt-6">
-          {SITE.batchStatus === 'open' ? (
+          {BATCH.status === 'open' ? (
             <CTAButton href={currentCTA.primaryHref}>
               {currentCTA.primaryLabel}
             </CTAButton>

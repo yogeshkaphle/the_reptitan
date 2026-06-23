@@ -1,8 +1,8 @@
 ---
-import { SITE, currentCTA } from '@/data/site';
+import { BATCH, currentCTA } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
-const status = SITE.batchStatus;
+const status = BATCH.status;
 
 const included = [
   'A Monday session plan, built on the method behind the record',
@@ -26,7 +26,7 @@ const included = [
 
       {status === 'closed' ? (
         <>
-          <p class="eyebrow mb-2 text-blood">Batch 1 full</p>
+          <p class="eyebrow mb-2 text-blood">Batch {BATCH.number} full</p>
           <p class="font-display text-4xl text-bone">Batch 2 coming soon</p>
           <p class="mt-4 text-stone">
             [PLACEHOLDER: Date TBD message. Join the list to be first to know and lock the founding rate for Batch 2.]
@@ -38,9 +38,9 @@ const included = [
       ) : (
         <>
           <!-- Price block -->
-          <p class="font-display text-6xl text-sand">Rs {SITE.bootcamp.foundingPrice.toLocaleString()}</p>
+          <p class="font-display text-6xl text-sand">Rs {BATCH.foundingPrice.toLocaleString()}</p>
           <p class="mt-2 text-sm text-stone">
-            First {SITE.bootcamp.batchCap} only, then <span class="text-stone/60 line-through">{SITE.bootcamp.standardPrice.toLocaleString()}</span>.
+            First {BATCH.cap} only, then <span class="text-stone/60 line-through">{BATCH.standardPrice.toLocaleString()}</span>.
           </p>
 
           <!-- What's included -->

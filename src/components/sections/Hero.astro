@@ -1,5 +1,5 @@
 ---
-import { SITE, currentCTA } from '@/data/site';
+import { SITE, BATCH, fmtDate, currentCTA } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 ---
 
@@ -23,8 +23,8 @@ import CTAButton from '@/components/ui/CTAButton.astro';
   <div class="container relative mx-auto">
     <!-- Eyebrow — short on mobile, full on desktop; never wraps -->
     <p class="eyebrow mb-5 whitespace-nowrap text-[0.7rem] sm:text-xs">
-      <span class="sm:hidden">Batch 1 · July 20</span>
-      <span class="hidden sm:inline">60-Day Bootcamp · Batch 1 · July 20</span>
+      <span class="sm:hidden">Batch {BATCH.number} · {fmtDate(BATCH.startDate)}</span>
+      <span class="hidden sm:inline">60-Day Bootcamp · Batch {BATCH.number} · {fmtDate(BATCH.startDate)}</span>
     </p>
 
     <!-- Headline -->
@@ -77,7 +77,7 @@ import CTAButton from '@/components/ui/CTAButton.astro';
         <p class="font-mono text-xs uppercase tracking-widest text-stone">days to break your plateau</p>
       </div>
       <div>
-        <p class="font-display text-3xl text-sand">{SITE.bootcamp.batchCap}</p>
+        <p class="font-display text-3xl text-sand">{BATCH.cap}</p>
         <p class="font-mono text-xs uppercase tracking-widest text-stone">spots per batch</p>
       </div>
     </div>

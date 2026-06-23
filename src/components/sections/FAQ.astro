@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { SITE } from '@/data/site';
+import { SITE, BATCH, fmtDate } from '@/data/site';
 
 interface Props {
   page: 'home' | 'magnet';
@@ -13,8 +13,8 @@ const homeFaqs = [
     a: "You can pay by eSewa or bank transfer. Once your payment comes through, you get your access and you're in.",
   },
   {
-    q: 'When does Batch 1 start, and when does the founding price end?',
-    a: `Batch 1 starts ${SITE.bootcamp.batchStartDate}. The founding price holds until 30 people are in, or July 18, whichever comes first. After that it's the standard price. No fake timer. When the 30 spots fill, founding's done.`,
+    q: `When does Batch ${BATCH.number} start, and when does the founding price end?`,
+    a: `Batch ${BATCH.number} starts ${fmtDate(BATCH.startDate)}. The founding price holds until ${BATCH.cap} people are in, or ${fmtDate(BATCH.foundingDeadline)}, whichever comes first. After that it's the standard price. No fake timer. When the ${BATCH.cap} spots fill, founding's done.`,
   },
   {
     q: 'Where does the Bootcamp run?',
