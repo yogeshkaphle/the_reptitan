@@ -1,6 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE, CTA_STATES } from '@/data/site';
+import { SITE, currentCTA } from '@/data/site';
 
 import Hero from '@/components/sections/Hero.astro';
 import PlateauPain from '@/components/sections/PlateauPain.astro';
@@ -17,22 +17,10 @@ import FAQ from '@/components/sections/FAQ.astro';
 import AboutBlock from '@/components/sections/AboutBlock.astro';
 import CTAButton from '@/components/ui/CTAButton.astro';
 import MobileCTABar from '@/components/layout/MobileCTABar.astro';
-const finalCta = CTA_STATES[SITE.batchStatus];
-
-// Footer WhatsApp message varies by batch state.
-const footerWaMessage = {
-  'pre-launch': 'Brother, I want to join the waitlist for Batch 1.',
-  'open':       'Brother, I want to join Batch 1.',
-  'closed':     'Brother, I want to join the waitlist for Batch 2.',
-}[SITE.batchStatus];
-
-// Fixed mobile bottom bar — primary CTA per batch state (mirrors Hero routing).
-const barCopy = 'Join';
-const barHref = {
-  'pre-launch': '/why-youre-stuck?source=waitlist',
-  'open':       '#enroll',
-  'closed':     '/why-youre-stuck?source=waitlist-b2',
-}[SITE.batchStatus];
+// All batch-state copy, hrefs, and messages come from currentCTA.
+const footerWaMessage = currentCTA.whatsappMsg;
+const barCopy = currentCTA.primaryLabel;
+const barHref = currentCTA.primaryHref;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -78,12 +66,12 @@ const schema = {
         Founding Batch is 30 spots. After that the price doubles and the next Batch is months away.
       </p>
       <div class="mt-8 flex flex-col items-center gap-4">
-        <CTAButton href={finalCta.href}>
-          {finalCta.copy}
+        <CTAButton href={currentCTA.primaryHref}>
+          {currentCTA.primaryLabel}
         </CTAButton>
 
         <p class="text-sm text-stone">
-          {finalCta.reassurance}
+          {currentCTA.subLine}
         </p>
 
         <a

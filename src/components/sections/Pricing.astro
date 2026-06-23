@@ -1,9 +1,8 @@
 ---
-import { SITE, CTA_STATES } from '@/data/site';
+import { SITE, currentCTA } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
 const status = SITE.batchStatus;
-const { copy: ctaCopy, href: ctaHref } = CTA_STATES[status];
 
 const included = [
   'A Monday session plan, built on the method behind the record',
@@ -33,7 +32,7 @@ const included = [
             [PLACEHOLDER: Date TBD message. Join the list to be first to know and lock the founding rate for Batch 2.]
           </p>
           <div class="mt-8">
-            <CTAButton href={ctaHref}>{ctaCopy}</CTAButton>
+            <CTAButton href={currentCTA.primaryHref}>{currentCTA.primaryLabel}</CTAButton>
           </div>
         </>
       ) : (
@@ -62,12 +61,9 @@ const included = [
 
           <!-- CTA -->
           <div class="mt-8">
-            <CTAButton href={ctaHref}>{ctaCopy}</CTAButton>
-            {status === 'pre-launch' && (
-              <p class="mt-3 text-sm text-stone">Founding Batch opens July 20. First 30 only.</p>
-            )}
-            {status === 'open' && (
-              <p class="mt-3 text-sm text-stone">First 30 founding spots.</p>
+            <CTAButton href={currentCTA.primaryHref}>{currentCTA.primaryLabel}</CTAButton>
+            {status !== 'closed' && (
+              <p class="mt-3 text-sm text-stone">{currentCTA.subLine}</p>
             )}
           </div>
         </>

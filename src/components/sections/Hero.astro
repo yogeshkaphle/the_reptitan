@@ -1,8 +1,6 @@
 ---
-import { SITE, CTA_STATES } from '@/data/site';
+import { SITE, currentCTA } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
-
-const { copy: primaryCopy, href: primaryHref, reassurance } = CTA_STATES[SITE.batchStatus];
 ---
 
 <section
@@ -46,13 +44,13 @@ const { copy: primaryCopy, href: primaryHref, reassurance } = CTA_STATES[SITE.ba
 
     <!-- CTA row — solid primary + ghost/outline secondary, both in all states -->
     <div class="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
-      <CTAButton href={primaryHref}>
-        {primaryCopy}
+      <CTAButton href={currentCTA.primaryHref}>
+        {currentCTA.primaryLabel}
       </CTAButton>
 
       <!-- Mobile-only: reassurance glued to primary CTA, before secondary -->
       <p class="text-sm text-stone sm:hidden">
-        {reassurance}
+        {currentCTA.subLine}
       </p>
 
       <a
@@ -65,7 +63,7 @@ const { copy: primaryCopy, href: primaryHref, reassurance } = CTA_STATES[SITE.ba
 
     <!-- Desktop-only: reassurance below the CTA row -->
     <p class="mt-4 hidden text-sm text-stone sm:block">
-      {reassurance}
+      {currentCTA.subLine}
     </p>
 
     <!-- Proof strip -->

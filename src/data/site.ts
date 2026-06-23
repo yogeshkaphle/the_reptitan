@@ -31,25 +31,30 @@ export const SITE = {
   formEndpoint: '',
 } as const;
 
-// Centralized 3-state CTA map. Hero, Pricing, and the final CTA all read from this.
-// Keep copy/href/reassurance consistent across the page by editing here only.
-export const CTA_STATES = {
+// Single-source CTA map. Flip SITE.batchStatus above to change every label, href, and message sitewide.
+export const ctaStates = {
   'pre-launch': {
-    copy:        'Join the Waitlist',
-    href:        '/why-youre-stuck?source=waitlist',
-    reassurance: 'Founding Batch opens July 20. First 30 only.',
+    primaryLabel: 'Join the Waitlist',
+    primaryHref:  '/why-youre-stuck?source=waitlist',
+    subLine:      'Founding Batch opens July 20. First 30 only.',
+    whatsappMsg:  'Brother, I want to join the waitlist for Batch 1.',
   },
   'open': {
-    copy:        'Join Batch 1',
-    href:        '#enroll',
-    reassurance: 'Batch 1 is open. First 30 founding spots.',
+    primaryLabel: 'Join Batch 1',
+    primaryHref:  '#enroll',
+    subLine:      'Founding price holds until 30 fill or July 18.',
+    whatsappMsg:  'Brother, I want to join the Founding Batch.',
   },
   'closed': {
-    copy:        'Join Waitlist for Batch 2',
-    href:        '/why-youre-stuck?source=waitlist-b2',
-    reassurance: 'Batch 1 is full. Join the waitlist for Batch 2.',
+    primaryLabel: 'Join Waitlist for Batch 2',
+    primaryHref:  '/why-youre-stuck?source=waitlist-b2',
+    subLine:      'Batch 1 is full. Next Batch opens later.',
+    whatsappMsg:  'Brother, Batch 1 is full. Put me on the Batch 2 waitlist.',
   },
 } as const;
+
+// Convenience: current state's fields. Import this in every call site.
+export const currentCTA = ctaStates[SITE.batchStatus];
 
 export function waLink(prefill?: string): string {
   const text = encodeURIComponent(prefill ?? SITE.waPrefill);

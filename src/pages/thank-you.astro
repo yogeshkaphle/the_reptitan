@@ -1,6 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE, waLink } from '@/data/site';
+import { SITE, currentCTA } from '@/data/site';
 import CTAButton from '@/components/ui/CTAButton.astro';
 
 // 9-item mini-course in exact order.
@@ -181,8 +181,8 @@ const miniCourse = [
         </p>
         <div class="mt-6">
           {SITE.batchStatus === 'open' ? (
-            <CTAButton href={waLink('Brother, I want to join the bootcamp.')} target="_blank" rel="noopener noreferrer">
-              Join Batch 1
+            <CTAButton href={currentCTA.primaryHref}>
+              {currentCTA.primaryLabel}
             </CTAButton>
           ) : (
             <CTAButton href="/#pricing">
