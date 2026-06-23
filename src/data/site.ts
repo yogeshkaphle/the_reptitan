@@ -22,7 +22,7 @@ export const SITE = {
 
   // Flip this one value to change the entire page state.
   // Values: "pre-launch" | "open" | "closed"
-  batchStatus: 'open' as 'pre-launch' | 'open' | 'closed',
+  batchStatus: 'closed' as 'pre-launch' | 'open' | 'closed',
 
   // Reveal the "How I Train: A Real Week" section on thank-you when Sunil confirms his week.
   howITrainTableReady: false,
