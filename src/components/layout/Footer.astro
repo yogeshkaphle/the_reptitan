@@ -3,50 +3,72 @@ import { SITE, waLink } from '@/data/site';
 
 interface Props {
   waMessage?: string;
+  minimal?: boolean;
 }
-const { waMessage } = Astro.props;
+const { waMessage, minimal = false } = Astro.props;
 const waHref = waLink(waMessage);
 ---
 
 <footer class="border-t border-white/10 bg-black py-12">
   <div class="container mx-auto">
-    <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
 
-      <!-- Brand -->
-      <div class="max-w-xs">
+    {minimal ? (
+      /* Conversion-page minimal footer: brand + tagline + one WA line + copyright */
+      <div class="flex flex-col items-center text-center gap-4">
         <p class="font-display text-xl uppercase tracking-display text-bone">
           The Rep<span class="text-blood">Titan</span>
         </p>
-        <p class="mt-2 text-sm text-stone">
-          Pull-up bootcamp by {SITE.coach}. Kathmandu, Nepal.
+        <p class="text-sm text-stone">
+          Pull-up bootcamp by {SITE.coach}.<br />Kathmandu, Nepal.
         </p>
+        <p class="text-sm text-stone">
+          Got a question? <a href={waHref} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">Message Sunil on WhatsApp</a>
+        </p>
+        <p class="text-xs text-stone/50">&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
       </div>
+    ) : (
+      /* Full footer: brand block + nav + WA line + copyright */
+      <>
+        <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
 
-      <!-- Links -->
-      <nav class="flex flex-col gap-3 text-sm text-stone" aria-label="Footer navigation">
-        <a href="/" class="transition-colors hover:text-sand">Home</a>
-        <a href="/why-youre-stuck" class="transition-colors hover:text-sand">Free Training</a>
-        <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
-          Instagram @the_reptitan
-        </a>
-        <a href={SITE.personalSite} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
-          sunil-khadka.com.np
-        </a>
-        <a href={waHref} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
-          WhatsApp
-        </a>
-      </nav>
+          <!-- Brand -->
+          <div class="max-w-xs">
+            <p class="font-display text-xl uppercase tracking-display text-bone">
+              The Rep<span class="text-blood">Titan</span>
+            </p>
+            <p class="mt-2 text-sm text-stone">
+              Pull-up bootcamp by {SITE.coach}. Kathmandu, Nepal.
+            </p>
+          </div>
 
-    </div>
+          <!-- Links -->
+          <nav class="flex flex-col gap-3 text-sm text-stone" aria-label="Footer navigation">
+            <a href="/" class="transition-colors hover:text-sand">Home</a>
+            <a href="/why-youre-stuck" class="transition-colors hover:text-sand">Free Training</a>
+            <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+              Instagram @the_reptitan
+            </a>
+            <a href={SITE.personalSite} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+              sunil-khadka.com.np
+            </a>
+            <a href={waHref} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-sand">
+              WhatsApp
+            </a>
+          </nav>
 
-    <div class="mt-10 border-t border-white/10 pt-6">
-      <p class="text-sm text-stone">
-        Got a question before you join?
-        <a href={waHref} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">
-          Message Sunil on WhatsApp
-        </a>
-      </p>
-      <p class="mt-4 text-xs text-stone/50">&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
-    </div>
+        </div>
+
+        <div class="mt-10 border-t border-white/10 pt-6">
+          <p class="text-sm text-stone">
+            Got a question before you join?
+            <a href={waHref} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">
+              Message Sunil on WhatsApp
+            </a>
+          </p>
+          <p class="mt-4 text-xs text-stone/50">&copy; {new Date().getFullYear()} {SITE.brand}. All rights reserved.</p>
+        </div>
+      </>
+    )}
+
   </div>
 </footer>

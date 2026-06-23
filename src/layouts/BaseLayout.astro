@@ -11,9 +11,10 @@ interface Props {
   noIndex?: boolean;
   schema?: Record<string, unknown>;
   waMessage?: string;
+  minimalFooter?: boolean;
 }
 
-const { title, description, ogImage, noIndex, schema, waMessage } = Astro.props;
+const { title, description, ogImage, noIndex, schema, waMessage, minimalFooter } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,6 +25,6 @@ const { title, description, ogImage, noIndex, schema, waMessage } = Astro.props;
   </head>
   <body class="min-h-screen bg-black text-stone">
     <slot />
-    <Footer waMessage={waMessage} />
+    <Footer waMessage={waMessage} minimal={minimalFooter} />
   </body>
 </html>
