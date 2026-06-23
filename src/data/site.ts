@@ -3,7 +3,7 @@ export const SITE = {
   coach: 'Sunil Khadka',
   domain: 'thereptitan.com',
   whatsapp: '9779869362060',
-  waPrefill: 'Dai, I want to join the bootcamp.',
+  waPrefill: 'Brother, I want to join the bootcamp.',
   instagram: 'https://instagram.com/the_reptitan',
   personalSite: 'https://sunil-khadka.com.np',
 
