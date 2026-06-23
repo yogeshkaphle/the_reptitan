@@ -23,6 +23,25 @@ export const SITE = {
 } as const;
 
 // ===================================================================
+// FIRST WEEK SAMPLE — set ready: true and fill day content when Sunil
+// confirms his Week 1 plan. Until then the whole section stays hidden.
+// ===================================================================
+export const firstWeek = {
+  // Flip to true when all 7 days have real content below.
+  ready: false,
+
+  days: [
+    { day: 1, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+    { day: 2, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+    { day: 3, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+    { day: 4, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+    { day: 5, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+    { day: 6, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+    { day: 7, focus: '[pending]', detail: '[DEV: add from Sunil Week 1]' },
+  ],
+} as const;
+
+// ===================================================================
 // BATCH CONTROL — edit this block to run each batch cycle.
 // After editing, commit + push (or edit in GitHub web UI). Site
 // updates automatically in ~1 minute via Vercel. Nothing else to do.
