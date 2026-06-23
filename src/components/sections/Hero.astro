@@ -18,6 +18,12 @@ const primaryHref = {
   'open':       '#enroll',
   'closed':     '/why-youre-stuck?source=waitlist-b2',
 }[status];
+
+const reassurance = {
+  'pre-launch': 'Founding Batch opens July 20. First 30 only.',
+  'open':       'Batch 1 is open. First 30 founding spots.',
+  'closed':     'Batch 1 is full. Join the waitlist for Batch 2.',
+}[status];
 ---
 
 <section
@@ -65,6 +71,11 @@ const primaryHref = {
         {primaryCopy}
       </CTAButton>
 
+      <!-- Mobile-only: reassurance glued to primary CTA, before secondary -->
+      <p class="text-sm text-stone sm:hidden">
+        {reassurance}
+      </p>
+
       <a
         href="/why-youre-stuck"
         class="inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-sand/40 bg-transparent px-6 py-4 font-mono text-sm uppercase tracking-wide text-bone transition-colors hover:border-sand hover:text-sand sm:w-auto"
@@ -73,22 +84,10 @@ const primaryHref = {
       </a>
     </div>
 
-    <!-- Conditional sub-button context — no price numbers in Hero -->
-    {status === 'pre-launch' && (
-      <p class="mt-4 text-sm text-stone">
-        Founding Batch opens July 20. First 30 only.
-      </p>
-    )}
-    {status === 'open' && (
-      <p class="mt-4 text-sm text-stone">
-        Batch 1 is open. First 30 founding spots.
-      </p>
-    )}
-    {status === 'closed' && (
-      <p class="mt-4 text-sm text-stone">
-        Batch 1 is full. Join the waitlist for Batch 2.
-      </p>
-    )}
+    <!-- Desktop-only: reassurance below the CTA row -->
+    <p class="mt-4 hidden text-sm text-stone sm:block">
+      {reassurance}
+    </p>
 
     <!-- Proof strip -->
     <div class="mt-12 flex flex-wrap gap-8 border-t border-white/10 pt-8">
