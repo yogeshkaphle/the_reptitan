@@ -1,0 +1,188 @@
+---
+// Reusable form shell. Field set is data-driven so this component is reused across welcome, intake, etc.
+
+interface Field {
+  name: string;
+  label: string;
+  type: string;
+  required: boolean;
+  help?: string;
+}
+
+interface Props {
+  action: string;           // POST endpoint. Empty string = demo mode (no fetch, shows success directly).
+  fields: Field[];
+  submitLabel: string;
+  successHeading: string;
+  successBody: string;
+  whatsappHref?: string;    // If set, a WhatsApp button appears in the success state.
+}
+
+const {
+  action,
+  fields,
+  submitLabel,
+  successHeading,
+  successBody,
+  whatsappHref,
+} = Astro.props;
+
+// Unique suffix per form instance — scopes IDs when multiple forms exist on a page.
+const uid = Math.random().toString(36).slice(2, 7);
+---
+
+<div data-appform data-action={action} data-uid={uid}>
+
+  <!-- Form -->
+  <form
+    id={`appform-${uid}`}
+    class="flex flex-col gap-5"
+    novalidate
+    aria-label="Enrollment form"
+  >
+    {fields.map((field) => {
+      const fieldId = `${uid}-${field.name}`;
+      const inputClass = "w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand";
+      return (
+        <div>
+          <label for={fieldId} class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
+            {field.label}{field.required && <span class="ml-1 text-blood" aria-hidden="true">*</span>}
+          </label>
+
+          {field.type === 'textarea' ? (
+            <textarea
+              id={fieldId}
+              name={field.name}
+              rows={4}
+              required={field.required || undefined}
+              class={inputClass + ' resize-y'}
+            />
+          ) : (
+            <input
+              id={fieldId}
+              name={field.name}
+              type={field.type}
+              required={field.required || undefined}
+              class={inputClass}
+            />
+          )}
+
+          {field.help && (
+            <p class="mt-1.5 text-xs text-stone/60">{field.help}</p>
+          )}
+        </div>
+      );
+    })}
+
+    <!-- Inline submission error (hidden until a fetch error occurs) -->
+    <p
+      id={`appform-error-${uid}`}
+      class="hidden rounded-md border border-blood/30 bg-blood/10 px-4 py-3 text-sm text-blood"
+      role="alert"
+    >
+      Something went wrong. Try again, or message Sunil on WhatsApp.
+    </p>
+
+    {!action && (
+      <p class="text-xs text-stone/50">
+        [DEV: action is empty — form runs in demo mode. Set action to the GHL webhook URL to activate submissions.]
+      </p>
+    )}
+
+    <button
+      type="submit"
+      id={`appform-submit-${uid}`}
+      class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-md bg-sand px-8 py-4 font-mono text-sm font-medium uppercase tracking-wide text-black transition-all hover:bg-sand-dim active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sand focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:opacity-60 sm:w-auto"
+    >
+      {submitLabel}
+    </button>
+  </form>
+
+  <!-- Success state (hidden until submission succeeds) -->
+  <div
+    id={`appform-success-${uid}`}
+    class="hidden rounded-xl border border-sand/20 bg-black-2 p-8 text-center"
+    role="status"
+    aria-live="polite"
+  >
+    <p class="eyebrow mb-4">Done</p>
+    <h3 class="headline text-2xl sm:text-3xl">{successHeading}</h3>
+    <p class="mt-4 text-stone">{successBody}</p>
+
+    {whatsappHref && (
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-6 inline-flex items-center justify-center gap-2 rounded-md border border-sand/40 bg-transparent px-6 py-3 font-mono text-sm uppercase tracking-wide text-bone transition-colors hover:border-sand hover:text-sand"
+      >
+        Open WhatsApp &rarr;
+      </a>
+    )}
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-appform]').forEach((wrapper) => {
+    const uid     = wrapper.dataset.uid!;
+    const action  = wrapper.dataset.action!;
+    const form    = wrapper.querySelector<HTMLFormElement>(`#appform-${uid}`);
+    const success = wrapper.querySelector<HTMLElement>(`#appform-success-${uid}`);
+    const errorEl = wrapper.querySelector<HTMLElement>(`#appform-error-${uid}`);
+    const submit  = wrapper.querySelector<HTMLButtonElement>(`#appform-submit-${uid}`);
+
+    if (!form || !success) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Native constraint validation with visual feedback.
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Build payload from form data.
+      const data: Record<string, string> = {};
+      new FormData(form).forEach((val, key) => { data[key] = val.toString(); });
+
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = 'Sending...';
+      }
+      if (errorEl) errorEl.classList.add('hidden');
+
+      if (!action) {
+        // Demo mode: skip fetch, log, show success.
+        console.log('[AppForm demo payload]', data);
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch(action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+      } catch (err) {
+        console.error('[AppForm error]', err);
+        if (errorEl) errorEl.classList.remove('hidden');
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = submit.dataset.label ?? 'Submit';
+        }
+      }
+    });
+
+    // Store original label for error recovery.
+    if (submit) submit.dataset.label = submit.textContent ?? 'Submit';
+  });
+</script>

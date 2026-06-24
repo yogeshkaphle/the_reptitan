@@ -1,0 +1,151 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import { SITE, BATCH, fmtDate } from '@/data/site';
+import AppForm from '@/components/AppForm.astro';
+
+// TODO: replace with GHL form/webhook URL when GHL is live. Empty = demo mode.
+const FORM_ENDPOINT = "";
+
+const WA_NUMBER = SITE.whatsapp;
+const WA_MSG = encodeURIComponent("Hi Sunil, I just enrolled in Batch 1. Here's my baseline video:");
+const WA_HREF = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
+
+const batchStartDisplay = fmtDate(BATCH.startDate);
+
+const formFields = [
+  { name: "full_name",      label: "Full name",                            type: "text",     required: true },
+  { name: "whatsapp",       label: "WhatsApp number",                      type: "tel",      required: true,  help: "I'll add you to the Batch 1 group here." },
+  { name: "email",          label: "Email",                                type: "email",    required: true },
+  { name: "baseline_max",   label: "Baseline Max (clean reps to failure)", type: "number",   required: true },
+  { name: "bodyweight_kg",  label: "Bodyweight (kg)",                      type: "number",   required: false, help: "Helps me scale your weighted sets." },
+  { name: "form_video_url", label: "Baseline video link (optional)",       type: "url",      required: false, help: "Unlisted YouTube or Drive link, or just send it on WhatsApp after." },
+  { name: "target_reps",    label: "Your target by Day 60",                type: "number",   required: false },
+  { name: "notes",          label: "Anything I should know",               type: "textarea", required: false, help: "Injuries, limits, schedule." },
+];
+---
+
+<PageLayout
+  title={`Welcome to Batch ${BATCH.number} — ${SITE.brand}`}
+  description={`You're in. Day 1 starts ${batchStartDisplay}. Complete your baseline before the batch opens.`}
+  noIndex={true}
+  waMessage={`Brother, I just enrolled in Batch ${BATCH.number}. What's next?`}
+  minimalFooter={true}
+>
+
+  <!-- SECTION 1 — Hero -->
+  <section class="section bg-black" aria-label="Welcome">
+    <div class="container mx-auto max-w-2xl text-center">
+      <p class="eyebrow mb-5">Batch {BATCH.number} &middot; Starts {batchStartDisplay}</p>
+      <h1 class="headline text-4xl sm:text-5xl md:text-6xl">
+        You're in. Let's get your <span class="text-blood">starting number.</span>
+      </h1>
+      <p class="mt-6 text-lg text-stone">
+        Before Day 1, I need one thing from you. Your honest pull-up max, filmed clean. That is where we start, and it is how we prove how far you go.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — How your 60 days run -->
+  <section class="section bg-black-2" aria-label="How your 60 days run">
+    <div class="container mx-auto max-w-2xl">
+      <p class="eyebrow mb-5 text-center">Your 60 days</p>
+      <h2 class="headline text-center text-3xl sm:text-4xl">
+        How the Bootcamp runs
+      </h2>
+
+      <div class="mt-10 space-y-6">
+        <div class="flex gap-4">
+          <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-sand pt-0.5">Mon</span>
+          <div>
+            <p class="font-medium text-bone">Monday Drop</p>
+            <p class="mt-1 text-stone">Your week's session plan lands in the group.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-sand pt-0.5">Wed</span>
+          <div>
+            <p class="font-medium text-bone">Wednesday Form Check</p>
+            <p class="mt-1 text-stone">You film one working set and send it. I check your form.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="flex-shrink-0 font-mono text-xs uppercase tracking-widest text-sand pt-0.5">Sat</span>
+          <div>
+            <p class="font-medium text-bone">Saturday Progress Check</p>
+            <p class="mt-1 text-stone">You log your top set so we both see the line moving.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-10 border-t border-white/10 pt-8 text-stone">
+        Your Lessons live in the member area. Your group lives on WhatsApp. Do your Missions. That is the deal behind the guarantee.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — Your first Mission: the Baseline Test -->
+  <section class="section bg-black" aria-label="Baseline test instructions">
+    <div class="container mx-auto max-w-2xl">
+      <p class="eyebrow mb-5">Mission 0</p>
+      <h2 class="headline text-3xl sm:text-4xl">
+        Your first Mission: the <span class="text-blood">Baseline Test</span>
+      </h2>
+      <p class="mt-5 text-stone">
+        Before anything else, I need your honest number. Here is how to test it right.
+      </p>
+
+      <ol class="mt-8 space-y-5">
+        {[
+          "Warm up properly. Don't test cold.",
+          "One set of strict pull-ups to failure. Full hang at the bottom, chin over the bar. No kipping, no knee bend.",
+          "Film side-on so the full range shows.",
+          "Count only the clean reps. That number is your Baseline Max.",
+        ].map((step, i) => (
+          <li class="flex gap-4">
+            <span class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-sand/30 font-mono text-xs text-sand">
+              {i + 1}
+            </span>
+            <p class="text-stone">{step}</p>
+          </li>
+        ))}
+      </ol>
+
+      <!-- Vimeo embed placeholder -->
+      <div class="mt-10">
+        {/* Vimeo: Sunil clean baseline-test demo, ID pending July 15 shoot */}
+        <div class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-white/20 bg-black-2">
+          <p class="font-mono text-xs uppercase tracking-widest text-stone/50">
+            [DEV: Add Vimeo ID when baseline-test demo is shot (July 15)]
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — Send me your number -->
+  <section class="section bg-black-2" aria-label="Baseline submission form">
+    <div class="container mx-auto max-w-xl">
+      <p class="eyebrow mb-5 text-center">Step 1 of 1</p>
+      <h2 class="headline mb-8 text-center text-3xl sm:text-4xl">
+        Send me your number
+      </h2>
+
+      <AppForm
+        action={FORM_ENDPOINT}
+        fields={formFields}
+        submitLabel="Lock in my baseline"
+        successHeading={`Got it. You're locked into Batch ${BATCH.number}.`}
+        successBody={`Your first Monday Drop lands ${batchStartDisplay}. Next step: send your baseline video on WhatsApp and I'll add you to the Batch ${BATCH.number} group.`}
+        whatsappHref={WA_HREF}
+      />
+    </div>
+  </section>
+
+  <!-- Stripped footer -->
+  <footer class="border-t border-white/10 bg-black py-8 text-center">
+    <p class="text-sm text-stone">
+      Questions? <a href={WA_HREF} target="_blank" rel="noopener noreferrer" class="text-sand transition-colors hover:underline">Message me on WhatsApp</a>
+    </p>
+  </footer>
+
+</PageLayout>
