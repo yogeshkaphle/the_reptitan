@@ -18,9 +18,9 @@ const formFields = [
   { name: "email",          label: "Email",                                type: "email",    required: true },
   { name: "baseline_max",   label: "Baseline Max (clean reps to failure)", type: "number",   required: true },
   { name: "bodyweight_kg",  label: "Bodyweight (kg)",                      type: "number",   required: false, help: "Helps me scale your weighted sets." },
-  { name: "form_video_url", label: "Baseline video link (optional)",       type: "url",      required: false, help: "Unlisted YouTube or Drive link, or just send it on WhatsApp after." },
   { name: "target_reps",    label: "Your target by Day 60",                type: "number",   required: false },
   { name: "notes",          label: "Anything I should know",               type: "textarea", required: false, help: "Injuries, limits, schedule." },
+  { name: "transformation_consent", label: "Sunil can share my before/after to help others. I'll be asked before anything goes public.", type: "checkbox", required: false },
 ];
 ---
 
@@ -119,6 +119,10 @@ const formFields = [
           </p>
         </div>
       </div>
+
+      <p class="mt-8 text-stone">
+        Film your baseline set side-on, full range visible. Send me the video on WhatsApp after you submit this. I'll add you to the Batch {BATCH.number} group there.
+      </p>
     </div>
   </section>
 

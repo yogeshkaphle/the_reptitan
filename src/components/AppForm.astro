@@ -43,6 +43,29 @@ const uid = Math.random().toString(36).slice(2, 7);
     {fields.map((field) => {
       const fieldId = `${uid}-${field.name}`;
       const inputClass = "w-full rounded-md border border-white/15 bg-black-2 px-4 py-3 text-bone placeholder:text-stone/40 focus:border-sand focus:outline-none focus:ring-1 focus:ring-sand";
+
+      if (field.type === 'checkbox') {
+        return (
+          <div>
+            <label for={fieldId} class="flex cursor-pointer items-start gap-3">
+              <input
+                id={fieldId}
+                name={field.name}
+                type="checkbox"
+                required={field.required || undefined}
+                class="mt-1 h-4 w-4 flex-shrink-0 rounded border-white/20 bg-black-2 text-sand focus:ring-1 focus:ring-sand focus:ring-offset-0"
+              />
+              <span class="text-sm text-stone">
+                {field.label}{field.required && <span class="ml-1 text-blood" aria-hidden="true">*</span>}
+              </span>
+            </label>
+            {field.help && (
+              <p class="mt-1.5 pl-7 text-xs text-stone/60">{field.help}</p>
+            )}
+          </div>
+        );
+      }
+
       return (
         <div>
           <label for={fieldId} class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-stone">
@@ -143,9 +166,13 @@ const uid = Math.random().toString(36).slice(2, 7);
         return;
       }
 
-      // Build payload from form data.
+      // Build payload from form data, then force checkboxes to "true"/"false"
+      // (FormData omits unchecked boxes and writes "on" for checked ones).
       const data: Record<string, string> = {};
       new FormData(form).forEach((val, key) => { data[key] = val.toString(); });
+      form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((cb) => {
+        data[cb.name] = cb.checked ? 'true' : 'false';
+      });
 
       if (submit) {
         submit.disabled = true;
